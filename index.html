@@ -23,12 +23,14 @@
 
 
 
+
+
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head><base href="https://d16ilfvy4mv02r.cloudfront.net/workspaces/gxKIp6OgDHv4GQPFgEZBztQ0so9HPbTY/6bcd2fb1-fd46-46f3-80b6-a71557b16cbc/files/">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loco Trouble Report Form</title>
+    <meta name="viewport" id="vpMeta" content="width=device-width, initial-scale=1.0">
+    <title>Joint Report Form</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
@@ -39,18 +41,21 @@
         .page-nav { max-width: 1000px; margin: 0 auto 10px auto; display: flex; gap: 6px; }
         .page-nav-btn { padding: 10px 28px; border: none; border-radius: 8px 8px 0 0; font-size: 14px; font-weight: 700; cursor: pointer; transition: background 0.25s, color 0.25s; background: rgba(255,255,255,0.25); color: #fff; }
         .page-nav-btn.active { background: #fff; color: #003366; }
+        /* JOINT REPORT is a link styled like the nav tabs */
+        a.page-nav-btn { display:inline-flex; align-items:center; box-sizing:border-box; text-decoration:none; }
         .container { max-width: 1000px; margin: 0 auto; background: white; padding: 30px 40px; border-radius: 0 10px 10px 10px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); }
         .page { display: none; }
         .page.active { display: block; }
-        .header { text-align: center; margin-bottom: 22px; background: transparent; border-radius: 8px 8px 0 0; border-bottom: 4px solid #000000; padding: 0; overflow: hidden; position: relative; }
-        .header-inner { display: flex; align-items: center; min-height: 68px; position: relative; }
+        .header { text-align: center; margin-bottom: 22px; background: #003399; border-radius: 8px 8px 0 0; border-bottom: 4px solid #FFD700; padding: 0; overflow: hidden; position: relative; }
+        .header-inner { display: flex; align-items: center; min-height: 90px; position: relative; }
+        .header-logo-box { background: #003399; width: 100px; min-width: 100px; display: flex; align-items: center; justify-content: center; padding: 6px 8px; flex-shrink: 0; border-right: none; }
+        .header-logo-box img { display: block; width: 82px; height: 82px; object-fit: contain; }
         .header-text { position: absolute; left: 0; right: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; pointer-events: none; }
-        .header h1, .header h1 * { font-size: 13px !important; }
-        .header h1 { color: #003366; font-size: 13px; font-weight: bold; padding: 14px 20px 4px 20px; margin: 0; text-align: center; pointer-events: auto; }
+        .header h1 { color: #ffffff; font-size: 26px; font-weight: bold; padding: 14px 20px 4px 20px; margin: 0; text-align: center; }
         .header .raipur-div-badge { display: block; background: #0022aa; color: #FFD700; font-size: 17px; font-weight: 800; padding: 7px 20px 11px 20px; letter-spacing: 3px; text-transform: uppercase; margin: 0; text-align: center; }
         .section { margin-bottom: 8px; padding: 0; background: #f8f9fa; border-radius: 8px; overflow: hidden; border: 2px solid #003366; }
         .section.case-details { background: transparent; border-radius: 8px; margin-bottom: 8px; border: 2px solid #003366; }
-        .section-title { font-size: 13px; font-weight: bold; color: #003366; background: #808080; padding: 5px 10px; text-transform: uppercase; letter-spacing: 0.5px; display: flex; align-items: center; justify-content: space-between; border-radius: 8px 8px 0 0; }
+        .section-title { font-size: 14px; font-weight: bold; color: #003366; background: #808080; padding: 5px 10px; text-transform: uppercase; letter-spacing: 0.5px; display: flex; align-items: center; justify-content: space-between; border-radius: 8px 8px 0 0; }
         .section-body { padding: 6px 10px 8px 10px; }
         .button-group { display: flex; gap: 8px; }
         .add-line-btn { background: #003366; color: white; border: none; width: 26px; height: 26px; border-radius: 50%; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.3s; line-height: 1; }
@@ -62,58 +67,32 @@
         input[type="text"], input[type="date"], textarea { width: 100%; padding: 2px 5px; border: 2px solid #e0e0e0; border-radius: 5px; font-size: 14px; transition: border-color 0.3s; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #FFFEF0; height: 30px; color: #000; box-sizing: border-box; }
         input[type="text"]:focus, input[type="date"]:focus, textarea:focus { outline: none; border-color: #003366; }
         .pdf-mode input[type="text"], .pdf-mode input[type="date"], .pdf-mode textarea { background-color: transparent !important; border: none !important; border-radius: 0 !important; }
-        textarea.auto-resize { resize: none; overflow: hidden; height: 24px; min-height: 24px; line-height: 1.4; padding: 3px 5px; display: block; word-break: break-all; overflow-wrap: break-word; white-space: pre-wrap; }
-        .textarea-mirror { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; line-height: 1.4; padding: 3px 5px; width: 100%; min-height: 24px; word-break: break-all; overflow-wrap: break-word; white-space: pre-wrap; display: block; color: #000; }
+        textarea.auto-resize { resize: none; overflow: hidden; height: 24px; min-height: 24px; line-height: 1.4; padding: 3px 5px; display: block; word-break: normal; overflow-wrap: break-word; white-space: pre-wrap; }
+        .textarea-mirror { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; line-height: 1.4; padding: 3px 5px; width: 100%; min-height: 24px; word-break: normal; overflow-wrap: break-word; white-space: pre-wrap; display: block; color: #000; }
         .textarea-mirror.case-details-textarea, .case-details-textarea { font-weight: bold; }
+        #caseDetails .line-number { font-weight: bold; }
+        .textarea-mirror:not(.case-details-textarea) { font-weight: normal; }
         .expandable-line { display: flex; align-items: flex-start; margin-bottom: 5px; }
-        .line-number { min-width: 26px; font-weight: bold; color: #000; padding-top: 3px; font-size: 13px; }
-        .line-input { flex: 1; }
+        .line-number { min-width: 26px; font-weight: normal; color: #000; padding-top: 3px; font-size: 13px; }
+        .line-input { flex: 1 1 auto; min-width: 0; }
         .expandable-container { margin-top: 4px; }
         .lp-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 4px; margin-top: 4px; }
         .lp-grid .form-group { display: grid; grid-template-columns: 120px 1fr; align-items: center; gap: 6px; border: 1.5px solid #003366; border-radius: 5px; padding: 3px 6px; background: #eef3fa; }
         .lp-grid .form-group label { margin-bottom: 0; text-align: right; }
         .lp-grid input[type="text"], .lp-grid input[type="date"] { height: 28px; }
-        .lp-grid .form-group .lp-label { display: flex; justify-content: flex-end; margin-bottom: 0; text-align: right; color: #000; }
-        .editable-label { cursor: text; outline: none; border-radius: 4px; transition: background 0.2s, box-shadow 0.2s; }
-        .editable-label:hover { background: rgba(255,215,0,0.18); }
-        .editable-label:focus { background: rgba(255,215,0,0.28); box-shadow: 0 0 0 2px #FFD700 inset; }
-        .editable-heading { cursor: text; outline: none; border-radius: 4px; transition: background 0.2s, box-shadow 0.2s; }
-        .editable-heading::after { content: "✏️"; font-size: 0.6em; opacity: 0.55; margin-left: 6px; vertical-align: middle; }
-        .editable-heading:hover { background: rgba(255,215,0,0.18); }
-        .editable-heading:focus { background: rgba(255,215,0,0.28); box-shadow: 0 0 0 2px #FFD700 inset; }
-        .pdf-mode .editable-heading::after { display: none !important; }
-        #mainHeadingText.editable-heading::after { content: ""; display: inline-block; width: 15px; height: 15px; margin-left: 8px; vertical-align: middle; opacity: 1; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z'/%3E%3C/svg%3E") no-repeat center / contain; }
-        .signature-section { margin-top: 30px; display: flex; justify-content: flex-end; align-items: flex-start; gap: 20px; flex-wrap: wrap; }
-        .signature-extra-fields { display: flex; gap: 10px; flex-wrap: wrap; margin-right: auto; }
-        .top-signature-fields { display: grid; grid-template-columns: repeat(4, minmax(170px, 1fr)); gap: 5px 14px; margin-bottom: 5px; max-width: 900px; }
-        .extra-field-box { border: 1.5px solid #cfe0f5; border-radius: 6px; padding: 4px 10px; background: #eef3fa; min-width: 190px; }
-        .extra-field-box label { font-size: 13px; font-weight: 700; color: #003366; margin-bottom: 3px; display: block; }
-        .extra-field-box input[type="text"] { height: 17px; width: 100%; }
-        .extra-field-box .cli-name-input { margin-top: 0; }
-        .extra-field-box .signature-upload { display: inline-flex; align-items: center; gap: 8px; padding: 3px 10px; background: #fff; color: #003366; border: 1px solid #b9c9e0; border-radius: 4px; font-size: 13px; }
-        .extra-field-box .signature-upload:hover { background: #f2f6fc; }
-        .pdf-mode .signature-extra-fields { margin-right: 0; }
-        .top-signature-fields { align-items: stretch; }
-        .signer-col { display: flex; flex-direction: column; align-items: center; min-width: 0; }
-        .signer-col .extra-field-box { width: 100%; margin-top: auto; }
-        .signer-col .signature-preview { margin: 6px auto 6px auto; max-width: 100%; max-height: none; padding: 4px; text-align: center; }
-        .signer-col .signature-preview img { max-width: 75%; max-height: 52px; display: block; margin: 0 auto; }
-        .pdf-mode .signer-col .signature-preview { border: none !important; padding: 0 !important; }
-        .pdf-mode .signer-col .extra-field-box { border: none !important; background: transparent !important; box-shadow: none !important; padding: 0 !important; min-width: 0; }
-        .signer-col .cli-name-text { width: 100%; text-align: center; font-family: inherit; font-size: 15px; font-weight: 600; line-height: 1.35; padding: 3px 0; color: #000; white-space: normal; word-break: break-word; overflow: visible; }
+        .signature-section { margin-top: 30px; display: flex; justify-content: flex-end; align-items: flex-start; gap: 20px; }
         .signature-box { text-align: center; }
-        .signature-upload { display: inline-block; padding: 4px 14px; background: transparent; color: #000; border: 1px solid #999; border-radius: 5px; cursor: pointer; font-size: 13px; transition: background 0.3s; }
-        .signature-upload:hover { background: #f0f0f0; }
+        .signature-upload { display: inline-block; padding: 8px 18px; background: #003366; color: white; border-radius: 5px; cursor: pointer; font-size: 13px; transition: background 0.3s; }
+        .signature-upload:hover { background: #0055aa; }
         .signature-upload input[type="file"] { display: none; }
         .signature-preview { margin-top: 8px; max-width: 200px; max-height: 100px; border: 2px dashed #e0e0e0; padding: 8px; border-radius: 5px; }
         .signature-preview img { max-width: 100%; max-height: 80px; }
         .cli-name-input { margin-top: 8px; width: 300px; height: 50px; font-size: 17px; font-weight: 600; padding: 10px 14px; letter-spacing: 0.4px; }
-        .submit-btn { flex: 1; padding: 7px 4px; background: #003366; color: white; border: none; border-radius: 5px; font-size: 10px; font-weight: 600; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; white-space: nowrap; }
+        .submit-btn { flex: 1; padding: 10px 15px; background: #003366; color: white; border: none; border-radius: 5px; font-size: 13px; font-weight: 600; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
         .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(0,51,102,0.4); background: #0055aa; }
-        .action-buttons { display: flex; gap: 5px; margin-top: 24px; flex-wrap: nowrap; }
-        @media (max-width: 480px) { .action-buttons { flex-wrap: wrap; } .submit-btn, .draft-btn { flex: 1 1 30%; } }
+        .action-buttons { display: flex; gap: 8px; margin-top: 24px; flex-wrap: wrap; }
         .draft-buttons { display: flex; gap: 10px; margin-bottom: 15px; }
-        .draft-btn { flex: 1; padding: 7px 4px; border: none; border-radius: 6px; font-size: 10px; font-weight: 600; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; justify-content: center; gap: 3px; white-space: nowrap; }
+        .draft-btn { flex: 1; padding: 10px 15px; border: none; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; justify-content: center; gap: 6px; }
         .draft-btn.download { background: #10b981; color: white; }
         .draft-btn.download:hover { background: #059669; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4); }
         .draft-btn.upload { background: #3b82f6; color: white; }
@@ -146,7 +125,7 @@
         .photo-tab-content { border: 2px solid #003366; border-radius: 0 8px 8px 8px; padding: 16px; background: #f8f9fa; min-height: 260px; }
         .photo-panel { display: none; }
         .photo-panel.active { display: block; }
-        .photo-panel-title { font-size: 13px; font-weight: bold; color: #003366; background: #e2e2e2; padding: 5px 10px; border-radius: 5px; margin-bottom: 12px; letter-spacing: 0.4px; text-transform: uppercase; }
+        .photo-panel-title { font-size: 14px; font-weight: bold; color: #003366; background: #e2e2e2; padding: 5px 10px; border-radius: 5px; margin-bottom: 12px; letter-spacing: 0.4px; text-transform: uppercase; }
         .photo-upload-zone { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
         .photo-upload-label { display: inline-flex; align-items: center; gap: 6px; padding: 8px 18px; background: #003366; color: white; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 600; transition: background 0.3s; white-space: nowrap; }
         .photo-upload-label:hover { background: #0055aa; }
@@ -171,7 +150,7 @@
         .photo-remove-btn { position: absolute; top: 5px; right: 5px; background: rgba(220,53,69,0.9); color: white; border: none; border-radius: 50%; width: 22px; height: 22px; font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; line-height: 1; }
         .photo-remove-btn:hover { background: #c82333; }
         .photo-empty { grid-column: 1 / -1; text-align: center; color: #aaa; font-size: 13px; padding: 40px 0; }
-        .pdf-mode .section-title { background: transparent !important; color: #000000 !important; text-decoration: none !important; border: none !important; padding: 5px 10px !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        .pdf-mode .section-title { background: #003366 !important; color: #ffffff !important; text-decoration: none !important; border: none !important; padding: 5px 10px !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
         .pdf-mode .section, .pdf-mode .section.case-details { border: none !important; background: transparent !important; border-radius: 0 !important; }
         .pdf-mode .section-body { background: transparent !important; padding: 4px 8px 5px 8px !important; }
         .pdf-mode .form-group { margin-bottom: 2px !important; }
@@ -179,19 +158,19 @@
         .pdf-mode .lp-grid { gap: 2px !important; }
         .pdf-mode input[type="text"], .pdf-mode input[type="date"] { background: transparent !important; border: none !important; border-radius: 0 !important; outline: none !important; box-shadow: none !important; }
         .pdf-mode #reportDateRow > div { background: transparent !important; border: none !important; }
+        .pdf-mode .header-logo-box { background: #003399 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
         .pdf-mode .no-pdf { display: none !important; }
         @media print {
             body { background: white !important; padding: 0 !important; margin: 0 !important; }
             .page-nav { display: none !important; }
             .container { box-shadow: none !important; padding: 15px !important; border-radius: 0 !important; max-width: 100% !important; }
             .page { display: block !important; }
-            .submit-btn, .signature-upload, .add-line-btn, .line-remove-btn, .photo-upload-zone, .photo-remove-btn, #textFormatToolbar, .no-pdf { display: none !important; }
+            .submit-btn, .cbtn, .signature-upload, .add-line-btn, .line-remove-btn, .photo-upload-zone, .photo-remove-btn, #textFormatToolbar, .no-pdf { display: none !important; }
             input[type="text"], input[type="date"] { border: none !important; background: transparent !important; height: auto !important; }
             textarea { border: none !important; background: transparent !important; }
             .photo-panel { display: block !important; }
             .photo-tab-btn { display: none !important; }
-            .section-title { background: transparent !important; color: #000000 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-            .editable-heading::after { display: none !important; }
+            .section-title { background: #003366 !important; color: #ffffff !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
             #photoPage { page-break-before: always; }
         }
         .text-format-toolbar { position: absolute; background: #003366; border-radius: 6px; padding: 8px; display: none; box-shadow: 0 4px 12px rgba(0,0,0,0.3); z-index: 1000; gap: 6px; }
@@ -208,8 +187,8 @@
             border-radius: 8px !important;
         }
         .pdf-mode #sectionLPTrain .section-title {
-            background: transparent !important;
-            color: #000000 !important;
+            background: #003366 !important;
+            color: #ffffff !important;
             text-decoration: none !important;
             padding: 5px 10px !important;
             border-radius: 8px 8px 0 0 !important;
@@ -228,10 +207,10 @@
             box-shadow: none !important;
             height: 28px !important;
         }
-        /* ── LP & Train: left-align labels + values in PDF ── */
-        .pdf-mode #sectionLPTrain .lp-grid .form-group .lp-label,
-        .pdf-mode #sectionLPTrain .lp-grid .form-group label { justify-content: flex-start !important; text-align: left !important; }
-        .pdf-mode #sectionLPTrain .lp-grid .form-group input { text-align: left !important; }
+        /* ── PDF font sizes: entered text 10px, sub headings 11px ── */
+        .pdf-mode .section-title, .pdf-mode .section-title span, .pdf-mode .section-title .title-text { font-size: 11px !important; }
+        .pdf-mode .textarea-mirror, .pdf-mode .line-number, .pdf-mode textarea,
+        .pdf-mode .section input[type="text"], .pdf-mode .section input[type="date"] { font-size: 10px !important; }
         /* ── Report page frame is drawn directly in the PDF (see generatePDF) for a clean, unbroken border ── */
         @media (max-width: 768px) { .lp-grid { grid-template-columns: 1fr; } .photo-grid { grid-template-columns: 1fr; } .container { padding: 20px; } }
         /* ── Voice Typing ── */
@@ -247,95 +226,246 @@
         .voice-status.voice-active { color:#00a040; }
         .listening-indicator { display:none; background:#ff4444; color:white; font-size:11px; font-weight:700; padding:3px 10px; border-radius:12px; animation:blink-pulse 1s infinite; }
         @keyframes blink-pulse { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
-    
-        /* ── Typography: headings bold 14px · all other report text 12px normal ── */
-        #reportPage .section *:not(button), #reportPage #authSection *:not(button), #photoFullscreen *:not(button) { font-size: 12px !important; font-weight: normal !important; }
-        #reportPage .section .section-title, #reportPage .section .section-title .editable-heading { font-size: 13px !important; font-weight: bold !important; }
-        #photoFullscreen .photo-fs-title, #photoFullscreen .photo-panel-title, #photoFullscreen .photo-page-header h2 { font-size: 13px !important; font-weight: bold !important; }
-        #mainHeadingText, #reportPage .section .section-title .editable-heading, #photoFullscreen .photo-fs-title, #photoFullscreen .photo-panel-title, #photoFullscreen .photo-page-header h2 { text-decoration: none !important; }
-        .editable-heading::after { display: inline-block; }
-        /* ── Compact PDF: tighter spacing (PDF mode only, on-screen form unchanged) ── */
-        .pdf-mode .section-title, .pdf-mode #sectionLPTrain .section-title { padding: 2px 10px !important; }
-        .pdf-mode .section-body { padding: 1px 8px 2px 8px !important; }
-        .pdf-mode .expandable-container { margin-top: 1px !important; }
-        .pdf-mode .expandable-line { margin-bottom: 0 !important; }
-        .pdf-mode .line-number { padding-top: 1px !important; }
-        .pdf-mode .textarea-mirror { min-height: 0 !important; padding: 1px 5px !important; line-height: 1.3 !important; }
-        .pdf-mode .form-group { margin-bottom: 1px !important; }
-        .pdf-mode .lp-grid { gap: 1px !important; margin-top: 1px !important; }
-        .pdf-mode #sectionLPTrain .lp-grid .form-group { padding: 1px 6px !important; }
-        .pdf-mode #sectionLPTrain input[type="text"], .pdf-mode #sectionLPTrain input[type="date"] { height: 26px !important; }
-        .pdf-mode #reportDateRow { margin-top: 16px !important; margin-bottom: 2px !important; }
-        .pdf-mode .signature-section { margin-top: 16px !important; }
-        .pdf-mode .top-signature-fields { margin-bottom: 0 !important; gap: 2px 14px !important; }
-        .pdf-mode .signer-col .signature-preview { margin: 2px auto !important; }
-        .pdf-mode .signer-col .cli-name-text { padding: 1px 0 !important; }
-        /* ── "Please wait — data saving" animation (shown above the buttons while SUBMIT is running) ── */
-        .saving-anim { display: none; text-align: center; padding: 12px 10px 10px; margin: 0 0 8px 0; background: #fff; border: 1.5px solid #cfe9d6; border-radius: 10px; }
-        .saving-anim.show { display: block; }
-        .saving-ring-wrap { position: relative; width: 64px; height: 64px; margin: 0 auto 8px auto; }
-        .saving-ring { position: absolute; top: 0; left: 0; right: 0; bottom: 0; box-sizing: border-box; border-radius: 50%; border: 7px solid #dff3e3; border-top-color: #1a9c3a; animation: saving-spin 1s linear infinite; }
-        .saving-hand { position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; font-size: 26px; animation: saving-wave 1.2s ease-in-out infinite; }
-        .saving-title { color: #1a9c3a; font-size: 16px; font-weight: 800; letter-spacing: 0.3px; }
-        .saving-sub { color: #17803a; font-size: 12px; font-weight: 700; margin-top: 3px; }
-        @keyframes saving-spin { to { transform: rotate(360deg); } }
-        @keyframes saving-wave { 0%, 100% { transform: rotate(-12deg); } 50% { transform: rotate(12deg); } }
-        /* ── Professional section headings in PDF: soft tint bar, navy accent + hairline rule ── */
-        .pdf-mode #reportPage .section .section-title {
-            background: #eeeeee !important;
-            color: #003366 !important;
-            border: none !important;
-            border-left: 4px solid #003366 !important;
-            border-bottom: 1px solid #c4c4c4 !important;
-            border-radius: 0 !important;
-            padding: 3px 10px !important;
-            letter-spacing: 0.8px !important;
-            margin-bottom: 2px !important;
-            -webkit-print-color-adjust: exact; print-color-adjust: exact;
+
+        /* ══════════════════════════════════════════════════════════
+           GLOSSY 3D ACTION BUTTONS  (reference-image style)
+           ══════════════════════════════════════════════════════════ */
+        .action-buttons.cbtn-row { display:flex; gap:8px; margin-top:16px; margin-bottom:16px; flex-wrap:wrap; justify-content:center; align-items:stretch; }
+        /* Keycap-style buttons: smooth light→dark gradient with a dark 3-D lip at the bottom,
+           a bright 1px top rim and a soft inner bottom highlight — matching the reference image. */
+        .cbtn {
+            --cbtn-top:#4b8cd2; --cbtn-mid:#18549a; --cbtn-bot:#03386e; --cbtn-edge:#001337;
+            position:relative;
+            flex:0 1 auto;
+            min-width:104px;
+            padding:8px 14px 10px;
+            border:none;
+            border-radius:8px;
+            font-family:inherit;
+            font-size:12px;
+            font-weight:800;
+            letter-spacing:.1px;
+            color:#fff;
+            cursor:pointer;
+            white-space:nowrap;
+            text-shadow:0 1px 1px rgba(0,0,0,.6);
+            background-image:linear-gradient(to bottom,
+                var(--cbtn-top) 0%,
+                var(--cbtn-mid) 45%,
+                var(--cbtn-bot) 80%,
+                var(--cbtn-edge) 89%,
+                var(--cbtn-edge) 100%);
+            box-shadow: 0 3px 7px rgba(0,0,0,.28),
+                        inset 0 1px 0 rgba(255,255,255,.45),
+                        inset 0 -6px 4px -6px rgba(255,255,255,.30);
+            transition: transform .1s ease, box-shadow .1s ease, filter .1s ease;
         }
-        .pdf-mode #reportPage .section .section-title .editable-heading { color: #003366 !important; }
-        /* ── 3D buttons: all five action buttons – same size, one row, raised → pressed-in when clicked ── */
-        .action-buttons { display: flex !important; flex-wrap: nowrap !important; gap: 6px; padding-bottom: 6px; }
-        .action-buttons .btn3d {
-            flex: 1 1 0 !important; min-width: 0; height: 40px; padding: 3px 5px; box-sizing: border-box;
-            display: flex; align-items: center; justify-content: center; text-align: center; gap: 3px;
-            white-space: normal; line-height: 1.15; font-size: 10px; font-weight: 800; letter-spacing: 0.2px;
-            color: #fff; border: 1px solid rgba(255,255,255,0.25); border-radius: 8px; cursor: pointer;
-            text-shadow: 0 1px 1px rgba(0,0,0,0.4); position: relative;
-            transition: transform 0.08s ease, box-shadow 0.08s ease, filter 0.15s ease;
-            background: linear-gradient(180deg, var(--hi) 0%, var(--mid) 48%, var(--lo) 100%) !important;
-            box-shadow: 0 5px 0 var(--edge), 0 8px 10px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.5) !important;
+        .cbtn:hover { filter:brightness(1.08); transform:translateY(-1px); box-shadow: 0 5px 11px rgba(0,0,0,.32), inset 0 1px 0 rgba(255,255,255,.5), inset 0 -6px 4px -6px rgba(255,255,255,.32); }
+        .cbtn:active { transform:translateY(1px); filter:brightness(.95); box-shadow: 0 2px 4px rgba(0,0,0,.3), inset 0 2px 4px rgba(0,0,0,.35); }
+        .cbtn:disabled { opacity:.55; cursor:not-allowed; transform:none; filter:grayscale(.25); }
+
+        /* Colours sampled from the reference image */
+        .cbtn-pdf      { --cbtn-top:#3f82ca; --cbtn-mid:#18549a; --cbtn-bot:#03386e; --cbtn-edge:#001337; }
+        .cbtn-download { --cbtn-top:#4dd6a8; --cbtn-mid:#1dbd91; --cbtn-bot:#0a9c6b; --cbtn-edge:#0c5537; }
+        .cbtn-upload   { --cbtn-top:#6eafff; --cbtn-mid:#3e8af8; --cbtn-bot:#2a68d9; --cbtn-edge:#0f378f; }
+        .cbtn-reset    { --cbtn-top:#fa7c88; --cbtn-mid:#e04451; --cbtn-bot:#bc2b38; --cbtn-edge:#78121d; }
+        .cbtn-submit   { --cbtn-top:#4cb54e; --cbtn-mid:#197b18; --cbtn-bot:#146614; --cbtn-edge:#042804; }
+        .cbtn-update   { --cbtn-top:#e8b23c; --cbtn-mid:#c08a10; --cbtn-bot:#8f6408; --cbtn-edge:#4a3203; }
+        /* long 'UPDATE ENTRY (SAVE CORRECTION)' text: wrap inside the button instead of overflowing */
+        .cbtn.cbtn-update { white-space:normal !important; line-height:1.15; font-size:11px; padding-left:6px; padding-right:6px; overflow:hidden; }
+
+        /* ══════════ EQUAL-SIZE BUTTONS + HOVER ══════════ */
+        /* Action row: 5 identical cells */
+        .action-buttons.cbtn-row { display:grid; grid-template-columns:repeat(5, minmax(0,1fr)); gap:10px; }
+        .cbtn { flex:none; width:100%; min-width:0; height:42px; padding:0 8px 2px; display:inline-flex; align-items:center; justify-content:center; text-align:center; font-size:12px; }
+        .cbtn:hover:not(:disabled) { filter:brightness(1.15) saturate(1.1); transform:translateY(-2px); box-shadow:0 7px 14px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.55), inset 0 -6px 4px -6px rgba(255,255,255,.35); }
+        /* Top nav tabs: identical size + hover */
+        .page-nav { flex-wrap:wrap; }
+        .page-nav-btn { flex:1 1 0; min-width:0; max-width:230px; height:42px; padding:0 10px; display:inline-flex; align-items:center; justify-content:center; text-align:center; white-space:nowrap; box-sizing:border-box; }
+        .page-nav-btn:not(.active):hover { background:rgba(255,255,255,0.5); color:#003366; transform:translateY(-2px); }
+        .page-nav-btn.active:hover { background:#eef3ff; }
+        /* Other buttons: hover feedback */
+        .photo-fs-close, .autosave-clear-btn, .add-line-btn, .line-remove-btn, .photo-remove-btn, .format-btn { transition:background .2s, color .2s, transform .15s, box-shadow .2s; }
+        .add-line-btn:hover, .line-remove-btn:hover, .photo-remove-btn:hover { transform:scale(1.12); }
+        .photo-fs-close:hover { transform:translateY(-1px); box-shadow:0 4px 10px rgba(0,0,0,.3); }
+
+        /* ══════════════════════════════════════════════════════════
+           “PLEASE WAIT — DATA SAVING” ANIMATION (above the buttons)
+           ══════════════════════════════════════════════════════════ */
+        .saving-panel {
+            display:none;
+            margin:18px 0 6px;
+            background:#fff;
+            border:2px solid #2e7d32;
+            border-radius:16px;
+            padding:24px 18px 20px;
+            text-align:center;
+            box-shadow:0 10px 30px rgba(46,125,50,.18);
         }
-        .action-buttons .b3-navy  { --hi: #4d8bd0; --mid: #0d4a8f; --lo: #003366; --edge: #001a36; }
-        .action-buttons .b3-green { --hi: #4ee0b0; --mid: #10b981; --lo: #0a9468; --edge: #056b4a; }
-        .action-buttons .b3-blue  { --hi: #7ab8ff; --mid: #3b82f6; --lo: #2a62d6; --edge: #1a3f96; }
-        .action-buttons .b3-red   { --hi: #ff8a94; --mid: #dc3545; --lo: #b52a37; --edge: #7a1a24; }
-        .action-buttons .b3-sub   { --hi: #55c255; --mid: #1a7a1a; --lo: #146214; --edge: #0a3d0a; }
-        .action-buttons .b3-sub.is-updated { --hi: #f4cf57; --mid: #c9971a; --lo: #a67c10; --edge: #5c4305; }
-        .action-buttons .btn3d:hover { transform: translateY(-1px) !important; filter: brightness(1.08); box-shadow: 0 6px 0 var(--edge), 0 10px 12px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.5) !important; }
-        /* clicked: pushed down, darker, inset shadow + amber ring so it clearly differs from the idle buttons */
-        .action-buttons .btn3d:active, .action-buttons .btn3d.is-clicked {
-            transform: translateY(5px) !important; filter: brightness(0.86);
-            background: linear-gradient(180deg, var(--lo) 0%, var(--mid) 100%) !important;
-            box-shadow: 0 0 0 0 transparent, inset 0 4px 8px rgba(0,0,0,0.45), 0 0 0 3px rgba(251,191,36,0.85) !important;
+        .saving-panel.show { display:block; animation:savingIn .28s ease; }
+        @keyframes savingIn { from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:none;} }
+        .saving-spinner { position:relative; width:96px; height:96px; margin:0 auto 16px; }
+        .saving-spinner svg { width:100%; height:100%; display:block; animation:saving-spin 1.05s linear infinite; }
+        .saving-spinner .ring-track { fill:none; stroke:#cfe8d0; stroke-width:9; }
+        .saving-spinner .ring-arc { fill:none; stroke:#2e7d32; stroke-width:9; stroke-linecap:round; stroke-dasharray:105 222; }
+        @keyframes saving-spin { from { transform:rotate(0deg); } to { transform:rotate(360deg); } }
+        .saving-hand { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:38px; line-height:1; animation:saving-hand-pulse 1.05s ease-in-out infinite; }
+        @keyframes saving-hand-pulse { 0%,100%{ transform:scale(1); } 50%{ transform:scale(1.12); } }
+        .saving-title { color:#2e7d32; font-size:19px; font-weight:800; letter-spacing:.4px; margin-bottom:7px; }
+        .saving-sub { color:#2e7d32; font-size:14px; font-weight:700; }
+        @media (max-width:768px) {
+            .action-buttons.cbtn-row { grid-template-columns:repeat(2, minmax(0,1fr)); }
+            .cbtn { font-size:11px; padding:0 6px 2px; }
+            .page-nav-btn { font-size:11px; padding:0 4px; }
+            .saving-title { font-size:15px; }
+            .saving-sub { font-size:12px; }
         }
-        .action-buttons .btn3d:disabled { cursor: wait; filter: grayscale(0.35) brightness(0.92); transform: translateY(3px) !important; box-shadow: 0 2px 0 var(--edge), inset 0 1px 0 rgba(255,255,255,0.35) !important; }
-        @media (max-width: 480px) { .action-buttons { gap: 3px; } .action-buttons .btn3d { height: 46px; padding: 2px 2px; font-size: 8px; letter-spacing: 0; border-radius: 6px; } }
+            #viewToggleBtn { position:fixed; right:10px; bottom:10px; z-index:99999; background:#003366; color:#fff; border:2px solid #FFD700; border-radius:22px; padding:9px 14px; font-size:13px; font-weight:700; box-shadow:0 3px 12px rgba(0,0,0,.35); cursor:pointer; display:none; }
+        @media print { #viewToggleBtn { display:none !important; } }
+
+        /* ══════════════════════════════════════════════════════════
+           MOBILE VIEW (phones) — default on mobile devices
+           PDF generation is unaffected (it renders at 1000px width)
+           ══════════════════════════════════════════════════════════ */
+        @media (max-width: 768px) {
+            html { -webkit-text-size-adjust: 100%; }
+            body { padding: 6px; }
+            .page-nav { margin-bottom: 6px; gap: 3px; }
+            .page-nav-btn { height: 38px; font-size: 10.5px; padding: 0 3px; border-radius: 6px 6px 0 0; }
+            .container { padding: 10px; border-radius: 0 8px 8px 8px; }
+            .header { margin-bottom: 12px; }
+            .header-inner { min-height: 64px; }
+            .header-logo-box { width: 60px; min-width: 60px; padding: 4px; }
+            .header-logo-box img { width: 50px; height: 50px; }
+            .header-text { left: 56px; }
+            .header h1 { font-size: 17px; padding: 8px 6px 2px; line-height: 1.15; }
+            .header .raipur-div-badge { font-size: 11px; letter-spacing: 1.5px; padding: 4px 10px 6px; }
+            .voice-bar { gap: 8px; padding: 6px 10px; margin-bottom: 10px; }
+            .autosave-bar { flex-wrap: wrap; gap: 6px; padding: 6px 10px; font-size: 11px; }
+            .section-title { font-size: 12.5px; padding: 6px 8px; }
+            .section-body { padding: 6px 6px 8px; }
+            .add-line-btn { width: 32px; height: 32px; font-size: 20px; }
+            .line-remove-btn { width: 28px; height: 28px; font-size: 18px; margin-left: 4px; margin-top: 1px; }
+            .line-number { min-width: 20px; font-size: 13px; }
+            /* 16px stops iOS from zooming when a box is tapped */
+            input[type="text"], input[type="date"], textarea { font-size: 16px; }
+            input[type="text"], input[type="date"] { height: 36px; }
+            textarea.auto-resize { font-size: 16px; line-height: 1.35; min-height: 32px; padding: 5px 6px; }
+            .textarea-mirror { font-size: 13px; }
+            .lp-grid { grid-template-columns: 1fr; gap: 5px; }
+            .lp-grid .form-group { grid-template-columns: 96px 1fr; gap: 4px; padding: 3px 5px; }
+            .lp-grid .form-group label { text-align: left; font-size: 12px; line-height: 1.15; }
+            .lp-grid input[type="text"], .lp-grid input[type="date"] { height: 34px; }
+            .signature-section { flex-direction: column; align-items: stretch; gap: 10px; margin-top: 16px; }
+            .signature-box { text-align: center; }
+            .cli-name-input { width: 100%; height: 44px; font-size: 15px; }
+            .signature-preview { max-width: 100%; }
+            .action-buttons.cbtn-row { grid-template-columns: repeat(2, minmax(0,1fr)); gap: 8px; }
+            .cbtn { height: 44px; font-size: 12px; padding: 0 6px 2px; }
+            .draft-buttons { flex-wrap: wrap; }
+            .draft-btn { flex: 1 1 45%; }
+            .photo-grid { grid-template-columns: 1fr; }
+            .photo-tab-content { padding: 10px; }
+            .photo-tab-btn { padding: 6px 9px; font-size: 11px; }
+            .photo-item .photo-img-wrap, .photo-item img { height: 170px; }
+            .photo-fullscreen { padding: 6px; }
+            .photo-fs-inner { padding: 12px; border-radius: 8px; }
+            .photo-fs-title { font-size: 16px; }
+            .photo-fs-close { padding: 7px 12px; font-size: 13px; }
+            .photo-upload-zone { flex-wrap: wrap; gap: 6px; }
+            .photo-upload-label { padding: 9px 14px; }
+            #viewToggleBtn { bottom: 8px; right: 8px; padding: 8px 12px; font-size: 12px; }
+        }
+        @media (max-width: 380px) {
+            .lp-grid .form-group { grid-template-columns: 82px 1fr; }
+            .header h1 { font-size: 15px; }
+            .cbtn { font-size: 11px; }
+        }
+
+        /* DESKTOP VIEW ON PHONE: page is 1000px wide and shrunk to fit, so enlarge typing/text sizes (--f = shrink factor) */
+        @media screen {
+            html.desk-phone textarea, html.desk-phone input[type="text"], html.desk-phone input[type="date"] { font-size: calc(12px * var(--f)); }
+            html.desk-phone input[type="text"], html.desk-phone input[type="date"] { height: calc(22px * var(--f)); }
+            html.desk-phone textarea.auto-resize { min-height: calc(20px * var(--f)); line-height: 1.3; }
+            html.desk-phone .line-number, html.desk-phone label, html.desk-phone .section-title { font-size: calc(11px * var(--f)); }
+            html.desk-phone .line-number { min-width: calc(20px * var(--f)); }
+            html.desk-phone .add-line-btn { width: calc(22px * var(--f)); height: calc(22px * var(--f)); font-size: calc(16px * var(--f)); }
+            html.desk-phone .line-remove-btn { width: calc(20px * var(--f)); height: calc(20px * var(--f)); font-size: calc(14px * var(--f)); }
+            html.desk-phone .lp-grid { grid-template-columns: 1fr; }
+            html.desk-phone .lp-grid .form-group { grid-template-columns: calc(80px * var(--f)) 1fr; }
+            html.desk-phone .lp-grid input[type="text"], html.desk-phone .lp-grid input[type="date"] { height: calc(22px * var(--f)); }
+            html.desk-phone .cbtn { font-size: calc(10px * var(--f)); height: calc(34px * var(--f)); }
+            html.desk-phone .page-nav-btn { font-size: calc(11px * var(--f)); height: calc(34px * var(--f)); }
+            html.desk-phone .photo-description { font-size: calc(11px * var(--f)); }
+            html.desk-phone #viewToggleBtn { font-size: calc(10px * var(--f)); padding: calc(7px * var(--f)) calc(11px * var(--f)); border-radius: calc(18px * var(--f)); }
+        }
+
+        /* ===== JOINT REPORT additions ===== */
+        .joint-heading { text-align:center; padding:26px 10px 14px; border-bottom:4px solid #000; margin-bottom:22px; }
+        .joint-heading #jointTitle { display:inline-block; min-width:200px; max-width:92%; font-size:20px; font-weight:800; color:#003366; text-transform:uppercase; letter-spacing:.4px; outline:none; word-break:break-word; }
+        .joint-heading #jointTitle:focus { background:#FFFEF0; box-shadow:0 0 0 2px #FFD700; border-radius:4px; }
+        .edit-ico { font-size:13px; color:#555; margin-left:8px; cursor:pointer; user-select:none; }
+        .section-title .title-wrap { display:flex; align-items:center; gap:4px; min-width:0; flex:1; }
+        .section-title .title-text { outline:none; cursor:text; min-width:40px; }
+        .section-title .title-text:focus { background:#FFFEF0; color:#003366; box-shadow:0 0 0 2px #FFD700; border-radius:3px; padding:0 4px; }
+        .section-title .edit-ico { font-size:11px; margin-left:2px; color:#c0392b; }
+        .pdf-mode .joint-heading { border-bottom:4px solid #000 !important; }
+        .pdf-mode .joint-heading #jointTitle { font-size:12px !important; }
+        .signature-section.sig-row4 { display:flex; justify-content:space-between; align-items:flex-start; gap:12px; margin-top:26px; }
+        .sig-row4 .sig-col { flex:1 1 0; min-width:0; text-align:center; }
+        .sig-row4 .signature-upload { background:#fff; color:#000; border:1px solid #888; border-radius:5px; padding:5px 14px; font-size:13px; font-weight:500; }
+        .sig-row4 .signature-upload:hover { background:#eef3fa; }
+        .sig-row4 .signature-preview { max-width:100%; margin:6px auto 0; display:none; border:none; padding:2px; }
+        .sig-row4 .signature-preview img { max-height:70px; }
+        .sig-row4 .sig-input-wrap { margin-top:8px; background:#eef3fa; border:1px solid #c9d6ea; border-radius:6px; padding:4px 6px; }
+        .sig-row4 .sig-name { width:100% !important; height:30px !important; margin:0 !important; font-size:13px !important; font-weight:600 !important; padding:2px 6px !important; text-align:center; }
+        .pdf-mode .sig-row4 .sig-input-wrap { background:transparent !important; border:none !important; }
+        .pdf-mode .sig-row4 .sig-name { font-size:13px !important; }
+
+        /* MOBILE: hide page background, form fills the whole screen */
+        @media (max-width: 768px) {
+            html, body { background:#fff !important; }
+            body { padding:0 !important; min-height:100vh; }
+            .page-nav { max-width:100%; margin:0; gap:2px; padding:4px 4px 0; background:#fff; }
+            .page-nav-btn { flex:1; background:#dfe7f3 !important; color:#003366 !important; border:1px solid #003366; border-bottom:none; }
+            .page-nav-btn.active { background:#003366 !important; color:#fff !important; }
+            .container { max-width:100% !important; width:100%; margin:0 !important; padding:8px !important; border-radius:0 !important; box-shadow:none !important; border-top:2px solid #003366; min-height:calc(100vh - 46px); }
+            .joint-heading { padding:14px 6px 10px; margin-bottom:12px; }
+            .joint-heading #jointTitle { font-size:16px; }
+            .photo-fullscreen { background:#fff !important; padding:0 !important; }
+            .photo-fs-inner { max-width:100% !important; border-radius:0 !important; box-shadow:none !important; min-height:100%; }
+            .signature-section.sig-row4 { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+            .sig-row4 .sig-col { text-align:center; }
+            #viewToggleBtn { bottom:8px; right:8px; }
+        }
     </style>
 </head>
 <body>
+    <button type="button" id="viewToggleBtn" class="no-pdf" onclick="toggleViewMode()">🖥️ DESKTOP VIEW</button>
+    <script>
+    (function(){
+        var isMobileView=true, btn=document.getElementById("viewToggleBtn"), vp=document.getElementById("vpMeta");
+        // show button only on real phones/tablets (desktop PCs already see desktop layout)
+        if(Math.min(screen.width,screen.height)<900) btn.style.display="block";
+        window.toggleViewMode=function(){
+            isMobileView=!isMobileView;
+            vp.setAttribute("content", isMobileView ? "width=device-width, initial-scale=1.0" : "width=1000, minimum-scale=0.1, maximum-scale=5");
+            btn.textContent = isMobileView ? "🖥️ DESKTOP VIEW" : "📱 MOBILE VIEW";
+            var de=document.documentElement;
+            if(isMobileView){ de.classList.remove("desk-phone"); }
+            else { de.style.setProperty("--f", Math.max(1, 1000/Math.min(screen.width,screen.height)).toFixed(2)); de.classList.add("desk-phone"); }
+            window.scrollTo(0,0);
+        };
+    })();
+    </script>
     <div class="page-nav">
         <button class="page-nav-btn active" onclick="switchPage('reportPage', this)">📋 REPORT FORM</button>
         <button class="page-nav-btn"        onclick="openPhotoFullscreen()">📷 PHOTO ATTACHMENTS</button>
     </div>
     <div class="container">
         <div class="page active" id="reportPage">
-            <div class="header" id="reportHeader">
-                <div class="header-inner">
-                    <div class="header-text">
-                        <h1 id="mainHeadingText" class="editable-heading" contenteditable="true" spellcheck="false">WRITE YOUR HEADING HERE</h1>
-                    </div>
-                </div>
+            <div class="joint-heading" id="jointHeading">
+                <span id="jointTitle" contenteditable="true" spellcheck="false" data-default="WRITE YOUR HEADING HERE">WRITE YOUR HEADING HERE</span><span class="edit-ico no-pdf" title="Click the heading to edit">&#9998;</span>
             </div>
 
 
@@ -350,190 +480,172 @@
             </div>
             <form id="locoReportForm">
                 <div class="section case-details">
-                    <div class="section-title"><span id="sectionTitle_caseDetails" class="editable-heading" contenteditable="true" spellcheck="false">Case Details</span><div class="button-group"><button type="button" class="add-line-btn" onclick="addLine('caseDetails')">+</button></div></div>
+                    <div class="section-title"><span>Case Details</span><div class="button-group"><button type="button" class="add-line-btn" onclick="addLine('caseDetails')">+</button></div></div>
                     <div class="section-body"><div class="expandable-container" id="caseDetails"><div class="expandable-line" data-index="1"><span class="line-number">1.</span><textarea class="line-input auto-resize case-details-textarea" name="caseDetails_1" placeholder="Enter case details line 1"></textarea><button type="button" class="line-remove-btn" onclick="removeThisLine(this,'caseDetails')" title="Remove">−</button></div></div></div>
                 </div>
                 <div class="section">
-                    <div class="section-title"><span id="sectionTitle_briefHistory" class="editable-heading" contenteditable="true" spellcheck="false">Brief History</span><div class="button-group"><button type="button" class="add-line-btn" onclick="addLine('briefHistory')">+</button></div></div>
+                    <div class="section-title"><span>Brief History</span><div class="button-group"><button type="button" class="add-line-btn" onclick="addLine('briefHistory')">+</button></div></div>
                     <div class="section-body"><div class="expandable-container" id="briefHistory"><div class="expandable-line" data-index="1"><span class="line-number">1.</span><textarea class="line-input auto-resize" name="briefHistory_1" placeholder="Enter history line 1"></textarea><button type="button" class="line-remove-btn" onclick="removeThisLine(this,'briefHistory')" title="Remove">−</button></div></div></div>
                 </div>
                 <div class="section" id="sectionLPTrain">
-                    <div class="section-title"><span id="sectionTitle_lpTrain" class="editable-heading" contenteditable="true" spellcheck="false">LP &amp; Train Particulars</span></div>
+                    <div class="section-title"><span>LP &amp; Train Particulars</span></div>
                     <div class="section-body"><div class="lp-grid">
-                        <div class="form-group"><span id="lpLabel_lpNamehq" class="lp-label editable-label" contenteditable="true" spellcheck="false">LP Name/HQ :</span><input type="text" id="lpNamehq" name="lpNamehq"></div>
-                        <div class="form-group"><span id="lpLabel_trainno" class="lp-label editable-label" contenteditable="true" spellcheck="false">Train No :</span><input type="text" id="trainno" name="trainno"></div>
-                        <div class="form-group"><span id="lpLabel_locono" class="lp-label editable-label" contenteditable="true" spellcheck="false">Loco No :</span><input type="text" id="locono" name="locono"></div>
-                        <div class="form-group"><span id="lpLabel_load" class="lp-label editable-label" contenteditable="true" spellcheck="false">Load :</span><input type="text" id="load" name="load"></div>
-                        <div class="form-group"><span id="lpLabel_lpgcli" class="lp-label editable-label" contenteditable="true" spellcheck="false">LP Group CLI :</span><input type="text" id="lpgcli" name="lpgcli"></div>
-                        <div class="form-group"><span id="lpLabel_bpcdetail" class="lp-label editable-label" contenteditable="true" spellcheck="false">BPC Details :</span><input type="text" id="bpcdetail" name="bpcdetails"></div>
-                        <div class="form-group"><span id="lpLabel_alpnamehq" class="lp-label editable-label" contenteditable="true" spellcheck="false">ALP Name/HQ :</span><input type="text" id="alpnamehq" name="alpnamehq"></div>
-                        <div class="form-group"><span id="lpLabel_bpcDate" class="lp-label editable-label" contenteditable="true" spellcheck="false">BPC Date :</span><input type="date" id="bpcDate" name="bpcDate"></div>
-                        <div class="form-group"><span id="lpLabel_schedule" class="lp-label editable-label" contenteditable="true" spellcheck="false">Schedule :</span><input type="text" id="schedule" name="schedule"></div>
-                        <div class="form-group"><span id="lpLabel_inspectionDetails" class="lp-label editable-label" contenteditable="true" spellcheck="false">Trip Insp. Details :</span><input type="text" id="inspectionDetails" name="inspectionDetails"></div>
-                        <div class="form-group"><span id="lpLabel_other1" class="lp-label editable-label" contenteditable="true" spellcheck="false">Other :</span><input type="text" id="other1" name="other1"></div>
-                        <div class="form-group"><span id="lpLabel_other2" class="lp-label editable-label" contenteditable="true" spellcheck="false">Other :</span><input type="text" id="other2" name="other2"></div>
+                        <div class="form-group"><label for="lpNamehq">LP Name/HQ :</label><input type="text" id="lpNamehq" name="lpNamehq"></div>
+                        <div class="form-group"><label for="dop">Train No :</label><input type="text" id="trainno" name="trainno"></div>
+                        <div class="form-group"><label for="locono">Loco No :</label><input type="text" id="locono" name="locono"></div>
+                        <div class="form-group"><label for="bpc%">Load :</label><input type="text" id="load" name="load"></div>
+                        <div class="form-group"><label for="grade">LP Group CLI :</label><input type="text" id="lpgcli" name="grade"></div>
+                        <div class="form-group"><label for="load">BPC Details :</label><input type="text" id="bpcdetail" name="bpcdetails"></div>
+                        <div class="form-group"><label for="GCLI">ALP Name/HQ :</label><input type="text" id="alpnamehq" name="alpnamehq"></div>
+                        <div class="form-group"><label for="bpcDate">BPC Date :</label><input type="date" id="bpcDate" name="bpcDate"></div>
+                        <div class="form-group"><label for="schedule">Schedule :</label><input type="text" id="schedule" name="schedule"></div>
+                        <div class="form-group"><label for="inspectionDetails">Trip Insp. Details :</label><input type="text" id="inspectionDetails" name="inspectionDetails"></div>
                     </div></div>
                 </div>
                 <div class="section">
-                    <div class="section-title"><span id="sectionTitle_logBookRemarks" class="editable-heading" contenteditable="true" spellcheck="false">Log Book Remarks</span><div class="button-group"><button type="button" class="add-line-btn" onclick="addLine('logBookRemarks')">+</button></div></div>
+                    <div class="section-title"><span>Log Book Remarks</span><div class="button-group"><button type="button" class="add-line-btn" onclick="addLine('logBookRemarks')">+</button></div></div>
                     <div class="section-body"><div class="expandable-container" id="logBookRemarks"><div class="expandable-line" data-index="1"><span class="line-number">1.</span><textarea class="line-input auto-resize" name="logBookRemarks_1" placeholder="Enter remark line 1"></textarea><button type="button" class="line-remove-btn" onclick="removeThisLine(this,'logBookRemarks')" title="Remove">−</button></div></div></div>
                 </div>
                 <div class="section">
-                    <div class="section-title"><span id="sectionTitle_ddsMessage" class="editable-heading" contenteditable="true" spellcheck="false">DDS MESSAGE</span><div class="button-group"><button type="button" class="add-line-btn" onclick="addLine('ddsmessage')">+</button></div></div>
+                    <div class="section-title"><span>DDS MESSAGE</span><div class="button-group"><button type="button" class="add-line-btn" onclick="addLine('ddsmessage')">+</button></div></div>
                     <div class="section-body"><div class="expandable-container" id="ddsmessage"><div class="expandable-line" data-index="1"><span class="line-number">1.</span><textarea class="line-input auto-resize" name="ddsmessage_1" placeholder="Enter remark line 1"></textarea><button type="button" class="line-remove-btn" onclick="removeThisLine(this,'ddsmessage')" title="Remove">−</button></div></div></div>
                 </div>
                
                 <div class="section">
-                    <div class="section-title"><span id="sectionTitle_chronologyEvents" class="editable-heading" contenteditable="true" spellcheck="false">Chronology of Events</span><div class="button-group"><button type="button" class="add-line-btn" onclick="addLine('chronologyEvents')">+</button></div></div>
+                    <div class="section-title"><span>Chronology of Events</span><div class="button-group"><button type="button" class="add-line-btn" onclick="addLine('chronologyEvents')">+</button></div></div>
                     <div class="section-body"><div class="expandable-container" id="chronologyEvents"><div class="expandable-line" data-index="1"><span class="line-number">1.</span><textarea class="line-input auto-resize" name="chronologyEvents_1" placeholder="Enter event line 1"></textarea><button type="button" class="line-remove-btn" onclick="removeThisLine(this,'chronologyEvents')" title="Remove">−</button></div></div></div>
                 </div>
                 
                 <div class="section" id="sectionObservation">
-                    <div class="section-title"><span id="sectionTitle_observation" class="editable-heading" contenteditable="true" spellcheck="false">Observation</span><div class="button-group"><button type="button" class="add-line-btn" onclick="addLine('observation')">+</button></div></div>
+                    <div class="section-title"><span>Observation</span><div class="button-group"><button type="button" class="add-line-btn" onclick="addLine('observation')">+</button></div></div>
                     <div class="section-body"><div class="expandable-container" id="observation"><div class="expandable-line" data-index="1"><span class="line-number">1.</span><textarea class="line-input auto-resize" name="observation_1" placeholder="Enter observation line 1"></textarea><button type="button" class="line-remove-btn" onclick="removeThisLine(this,'observation')" title="Remove">−</button></div></div></div>
                 </div>
                 <div class="section" id="sectionActionTaken">
-                    <div class="section-title"><span id="sectionTitle_actionTaken" class="editable-heading" contenteditable="true" spellcheck="false">Action Taken</span><div class="button-group"><button type="button" class="add-line-btn" onclick="addLine('actionTaken')">+</button></div></div>
+                    <div class="section-title"><span>Action Taken</span><div class="button-group"><button type="button" class="add-line-btn" onclick="addLine('actionTaken')">+</button></div></div>
                     <div class="section-body"><div class="expandable-container" id="actionTaken"><div class="expandable-line" data-index="1"><span class="line-number">1.</span><textarea class="line-input auto-resize" name="actionTaken_1" placeholder="Enter action line 1"></textarea><button type="button" class="line-remove-btn" onclick="removeThisLine(this,'actionTaken')" title="Remove">−</button></div></div></div>
                 </div>
                 <div class="section" id="sectionConclusion">
-                    <div class="section-title"><span id="sectionTitle_conclusion" class="editable-heading" contenteditable="true" spellcheck="false">Conclusion &amp; Responsibility</span><div class="button-group"><button type="button" class="add-line-btn" onclick="addLine('conclusion')">+</button></div></div>
+                    <div class="section-title"><span>Conclusion &amp; Responsibility</span><div class="button-group"><button type="button" class="add-line-btn" onclick="addLine('conclusion')">+</button></div></div>
                     <div class="section-body"><div class="expandable-container" id="conclusion"><div class="expandable-line" data-index="1"><span class="line-number">1.</span><textarea class="line-input auto-resize" name="conclusion_1" placeholder="Enter conclusion line 1"></textarea><button type="button" class="line-remove-btn" onclick="removeThisLine(this,'conclusion')" title="Remove">−</button></div></div></div>
                 </div>
                 <div id="authSection">
-                <div class="signature-section" id="signatureSection">
-                    <div class="signature-box">
-                        <div class="top-signature-fields">
-                        <div class="signer-col">
-                                <label class="signature-upload">Attach Sign<input type="file" id="signatureFile" accept="image/*" onchange="previewSignature(event)"></label>
-                                <div class="signature-preview" id="signaturePreview" style="display:none;"><img id="signatureImage" src="" alt="Signature"></div>
-                                <div class="form-group extra-field-box">
-                                    <input list="cliNameOptions" type="text" class="cli-name-input" id="cliName" name="cliName" placeholder="Select CLI Name and HQ">
-                                </div>
-                            </div>
-                        <div class="signer-col">
-                                <label class="signature-upload">Attach Sign<input type="file" id="signatureFile2" accept="image/*" onchange="previewSignature2(event)"></label>
-                                <div class="signature-preview" id="signaturePreview2" style="display:none;"><img id="signatureImage2" src="" alt="2nd Signature"></div>
-                                <div class="form-group extra-field-box">
-                                    <input type="text" class="cli-name-input" id="cliName2" name="cliName2" placeholder="Select 2nd CLI Name and HQ (optional)">
-                                </div>
-                            </div>
-                        <div class="signer-col">
-                                <label class="signature-upload">Attach Sign<input type="file" id="signatureFile3" accept="image/*" onchange="previewSignature3(event)"></label>
-                                <div class="signature-preview" id="signaturePreview3" style="display:none;"><img id="signatureImage3" src="" alt="3rd Signature"></div>
-                                <div class="form-group extra-field-box">
-                                    <input type="text" class="cli-name-input" id="cliName3" name="cliName3" placeholder="Select 3rd CLI Name and HQ (optional)">
-                                </div>
-                            </div>
-                        <div class="signer-col">
-                                <label class="signature-upload">Attach Sign<input type="file" id="signatureFile4" accept="image/*" onchange="previewSignature4(event)"></label>
-                                <div class="signature-preview" id="signaturePreview4" style="display:none;"><img id="signatureImage4" src="" alt="4th Signature"></div>
-                                <div class="form-group extra-field-box">
-                                    <input type="text" class="cli-name-input" id="cliName4" name="cliName4" placeholder="Select 4th CLI Name and HQ (optional)">
-                                </div>
+                <div class="signature-section sig-row4" id="signatureSection">
+                        <div class="sig-col">
+                            <label class="signature-upload">Attach Sign<input type="file" id="signatureFile" accept="image/*" onchange="previewSignature(event,1)"></label>
+                            <div class="signature-preview" id="signaturePreview" style="display:none;"><img id="signatureImage" src="" alt="Signature 1"></div>
+                            <div class="sig-input-wrap"><input list="cliNameOptions" type="text" class="cli-name-input sig-name" id="cliName" name="cliName" placeholder="Select CLI Name"></div>
+                            <div id="otherCliNameBox" style="display:none; margin-top:6px;">
+                                <input type="text" id="otherCliName" name="otherCliName" placeholder="Type full CLI Name here..." style="width:100%;height:36px;font-size:13px;font-weight:600;border:2px solid #c0392b;border-radius:6px;padding:4px 8px;background:#fff5f5;color:#000;">
                             </div>
                         </div>
-                        <div class="form-group" style="margin-top:8px; display:none;">
-                            <input type="hidden" id="cliNameLegacyPlaceholder">
-                            <datalist id="cliNameOptions">
-                                <option value="A K REDDY/CLI/R">
-                                <option value="A.R.TARAM/CLI/BIA">
-                                <option value="ABDUL MOIN KHAN/CLI/BIA">
-                                <option value="AKHILESH KUMAR/CLI/BIA">
-                                <option value="AMIT KUMAR BANKURE/CLI/BYT">
-                                <option value="ANANT PRAKASH SHRIVASTAVA/CLI/BIA">
-                                <option value="ANIL KUMAR/CLI/BIA">
-                                <option value="ANKIT RAM KANT/CLI/BIA">
-                                <option value="AVON KUMAR SAHU/CLI/R">
-                                    <option value="ASHISH WANJARI/CLI/BYT"></option>
-                                <option value="B B KUSHWAHA/CLI/BIA">
-                                <option value="B K HARMUKH/CLI/BIA">
-                                <option value="B. K. SAHA/CLI/BIA">
-                                <option value="B.K.SONI/CLI/BIA">
-                                <option value="BHARAT SINGH ATBHAIYYA/CLI/R">
-                                <option value="BHOLI CHAUDHARY/CLI/R">
-                                <option value="BIKRAMJIT KANRAR/CLI/BIA">
-                                     <option value="BINOD KUMAR RAM/CLI/R"></option>
-                                <option value="CLI NAME/CLI/BIA">
-                                <option value="DEEPANNITA PUNTAMBEKAR/CLI/BIA">
-                                      <option value="DILLI RAO/CLI/BYT"></option>
-                                <option value="G. C. BISWAS/CLI/R">
-                                <option value="G. V. R. K. MADHU/CLI/BIA">
-                                <option value="GIRDHARI LAL/CLI/R">
-                                <option value="JAISHANKAR SHARMA/CLI/BIA">
-                                     <option value="JITENDRA KUMAR MISHRA/CLI/BYT"></option>
-                                <option value="K P LAHARE/CLI/R">
-                                    <option value="K P HIRWANI/CLI/BYT"></option>
-                                <option value="K. K. SAHU/CLI/BIA">
-                                <option value="KHUSAL SINGH/CLI/DRZ">
-                                <option value="MAHESHWAR/CLI/BIA">
-                                <option value="MANOJ KUMAR SAO/CLI/R">
-                                <option value="MANSUKH LAL CHANDRAKAR/CLI/R">
-                                <option value="MOHIT KUMAR SWARNKAR/CLI/BIA">
-                                <option value="N. R. KARPAL/CLI/BIA">
-                                <option value="N.K. BHOI/CLI/R">
-                                        <option value="NITIN KUKDE/CLI/BYT"></option>
-                                    <option value="NIRMAL KUMAR/CLI/BYT"></option>
-                                <option value="P.K. PATEL/CLI/BIA">
-                                <option value="PANKAJ KUMAR SINGH/CLI/BIA">
-                                <option value="PAWAN KUMAR SINGH/CLI/BIA">
-                                      <option value="PURAN LAL PATEL/CLI/BYT"></option>
-                                <option value="RAJENDRA KUMAR/CLI/BIA">
-                                       <option value="PALAK RAM ALENDRA/CLI/DRZ"></option>
-                                <option value="RAJESH KUMAR DESHMUKH/CLI/R">
-                                <option value="RAJNEESH BENERJEE/CLI/BIA">
-                                     <option value="RANJEET SINGH/CLI/BYT"></option>
-                                     <option value="RAKESH KUMAR KOSTA/CLI/DRZ"></option>
-                                <option value="S K GAUTAM/CLI/BIA">
-                                <option value="S S HUSSAIN/CLI/BIA">
-                                <option value="S. C. RAI/CLI/BIA">
-                                <option value="S. K. SINGH/CLI/BIA">
-                                <option value="S. L. SONI/CLI/R">
-                                <option value="SANJAY KUMAR ROY/CLI/BIA">
-                                      <option value="SANJAY SINGH/CLI/BYT"></option>
-                                <option value="SANJEEV KUMAR SHARMA/CLI/BIA">
-                                     <option value="SANTOSH KUAMAR PATKAR/CLI/BIA"></option>
-                                <option value="SHAILENDRA SINGH/CLI/BIA">
-                                <option value="SUNDEEP KUMAR SHARMA/CLI/BIA">
-                                <option value="SUNIL KUMAR DEWANGAN/CLI/BIA">
-                                      <option value="SANAT KUMAR SAHU/CLI/DRZ"></option>
-                                <option value="TEST ID/CLI/BIA">
-                                <option value="V.K. BHAGAT/CLI/R">
-                                <option value="VIJAY KUMAR ARYA/CLI/BIA">
-                                <option value="VIKAS SHENDE/CLI/BIA">
-                                <option value="VINAY KUMAR VINCHURE/CLI/BIA">
-                                <option value="VINAY PANTAWANE/CLI/BIA">
-                                <option value="Y. RAMU/CLI/BIA">
-                                     <option value="YOGESH KUMAR MIHAULIA/CLI/BIA"></option>
-                                <option value="GHANA RAM SAHU/CLI/BIA">
-                                <option value="HARESH SHRAWAN/CLI/BIA">
-                                <option value="RAJPUT MUKESH KUMAR/CLI/BIA">
-                                <option value="NEELKANTH DEWANGAN/CLI/BIA">
-                                <option value="GIRISH KUMAR VERMA/CLI/BYT">
-                                <option value="BRIJESH YADAV/CLI/BYT">
-                                <option value="RAM KISHOR YADAV/CLI/BYT">
-                                <option value="NEELMANI SAHU/CLI/BYT">
-                                <option value="DEEPAK KUMAR SWARNAKAR/CLI/BYT">
-                                <option value="PYARELAL SONWANI/CLI/BYT">
-                                <option value="SUNEET KUMAR/CLI/BYT">
-                                <option value="BAL KRISHNA/CLI/BYT">
-                                <option value="DHANESH KUMAR/CLI/BYT">
-                                <option value="SANDEEP PATIL/CLI/BYT">
-                                <option value="BALESHWAR PAHAN/CLI/BYT">
-                                <option value="VIJAY RAM/CLI/BYT">
-                                <option value="OTHERS">
+                        <div class="sig-col">
+                            <label class="signature-upload">Attach Sign<input type="file" id="signatureFile2" accept="image/*" onchange="previewSignature(event,2)"></label>
+                            <div class="signature-preview" id="signaturePreview2" style="display:none;"><img id="signatureImage2" src="" alt="Signature 2"></div>
+                            <div class="sig-input-wrap"><input type="text" autocomplete="off" class="cli-name-input sig-name" id="official2" name="official2" placeholder="Select 2nd Official"></div>
+                        </div>
+                        <div class="sig-col">
+                            <label class="signature-upload">Attach Sign<input type="file" id="signatureFile3" accept="image/*" onchange="previewSignature(event,3)"></label>
+                            <div class="signature-preview" id="signaturePreview3" style="display:none;"><img id="signatureImage3" src="" alt="Signature 3"></div>
+                            <div class="sig-input-wrap"><input type="text" autocomplete="off" class="cli-name-input sig-name" id="official3" name="official3" placeholder="Select 3rd Official"></div>
+                        </div>
+                        <div class="sig-col">
+                            <label class="signature-upload">Attach Sign<input type="file" id="signatureFile4" accept="image/*" onchange="previewSignature(event,4)"></label>
+                            <div class="signature-preview" id="signaturePreview4" style="display:none;"><img id="signatureImage4" src="" alt="Signature 4"></div>
+                            <div class="sig-input-wrap"><input type="text" autocomplete="off" class="cli-name-input sig-name" id="official4" name="official4" placeholder="Select 4th Official"></div>
+                        </div>
+                        <datalist id="cliNameOptions">
+                                <option value="A K REDDY/CLI/R">A K REDDY/CLI/R</option>
+                                <option value="A.R. TARAM/CLI/BIA">A.R. TARAM/CLI/BIA</option>
+                                <option value="ABDUL MOIN KHAN/CLI/BIA">ABDUL MOIN KHAN/CLI/BIA</option>
+                                <option value="AKHILESH KUMAR/CLI/BIA">AKHILESH KUMAR/CLI/BIA</option>
+                                <option value="AMIT KUMAR BANKURE/CLI/BIA">AMIT KUMAR BANKURE/CLI/BIA</option>
+                                <option value="ANANT PRAKASH SHRIVASTAVA/CLI/BIA">ANANT PRAKASH SHRIVASTAVA/CLI/BIA</option>
+                                <option value="ANIL KUMAR/CLI/BIA">ANIL KUMAR/CLI/BIA</option>
+                                <option value="ANKIT RAM KANT/CLI/BIA">ANKIT RAM KANT/CLI/BIA</option>
+                                <option value="AVON KUMAR SAHU/CLI/R">AVON KUMAR SAHU/CLI/R</option>
+                                <option value="ASHISH WANJARI/CLI/BIA">ASHISH WANJARI/CLI/BIA</option>
+                                <option value="B B KUSHWAHA/CLI/BIA">B B KUSHWAHA/CLI/BIA</option>
+                                <option value="B K HARMUKH/CLI/BIA">B K HARMUKH/CLI/BIA</option>
+                                <option value="B. K. SAHA/CLI/BIA">B. K. SAHA/CLI/BIA</option>
+                                <option value="B.K.SONI/CLI/BIA">B.K.SONI/CLI/BIA</option>
+                                <option value="BHARAT SINGH ATBHAIYYA/CLI/R">BHARAT SINGH ATBHAIYYA/CLI/R</option>
+                                <option value="BHOLI CHAUDHARY/CLI/R">BHOLI CHAUDHARY/CLI/R</option>
+                                <option value="BIKRAMJIT KANRAR/CLI/BIA">BIKRAMJIT KANRAR/CLI/BIA</option>
+                                <option value="BINOD KUMAR RAM/CLI/R">BINOD KUMAR RAM/CLI/R</option>
+                                <option value="CLI NAME/CLI/BIA">CLI NAME/CLI/BIA</option>
+                                <option value="DEEPANNITA PUNTAMBEKAR/CLI/BIA">DEEPANNITA PUNTAMBEKAR/CLI/BIA</option>
+                                <option value="DILLI RAO/CLI/BIA">DILLI RAO/CLI/BIA</option>
+                                <option value="G. C. BISWAS/CLI/R">G. C. BISWAS/CLI/R</option>
+                                <option value="G. V. R. K. MADHU/CLI/BIA">G. V. R. K. MADHU/CLI/BIA</option>
+                                <option value="GIRDHARI LAL/CLI/R">GIRDHARI LAL/CLI/R</option>
+                                <option value="JAISHANKAR SHARMA/CLI/BIA">JAISHANKAR SHARMA/CLI/BIA</option>
+                                <option value="JITENDRA KUMAR MISHRA/CLI/BIA">JITENDRA KUMAR MISHRA/CLI/BIA</option>
+                                <option value="K P LAHARE/CLI/R">K P LAHARE/CLI/R</option>
+                                <option value="K P HIRWANI/CLI/BIA">K P HIRWANI/CLI/BIA</option>
+                                <option value="K. K. SAHU/CLI/BIA">K. K. SAHU/CLI/BIA</option>
+                                <option value="KHUSHAL SINGH/CLI/DRZ">KHUSHAL SINGH/CLI/DRZ</option>
+                                <option value="KAMLESH KUMAR RAJABHOJ/CLI/BIA">KAMLESH KUMAR RAJABHOJ/CLI/BIA</option>
+                                <option value="MAHESHWAR/CLI/BIA">MAHESHWAR/CLI/BIA</option>
+                                <option value="MANOJ KUMAR SAO/CLI/BIA">MANOJ KUMAR SAO/CLI/BIA</option>
+                                <option value="MANSUKH LAL CHANDRAKAR/CLI/R">MANSUKH LAL CHANDRAKAR/CLI/R</option>
+                                <option value="MOHIT KUMAR SWARNKAR/CLI/BIA">MOHIT KUMAR SWARNKAR/CLI/BIA</option>
+                                <option value="N. R. KARPAL/CLI/BIA">N. R. KARPAL/CLI/BIA</option>
+                                <option value="N.K. BHOI/CLI/R">N.K. BHOI/CLI/R</option>
+                                <option value="NITIN KUKDE/CLI/BIA">NITIN KUKDE/CLI/BIA</option>
+                                <option value="NIRMAL KUMAR/CLI/BIA">NIRMAL KUMAR/CLI/BIA</option>
+                                <option value="P.K. PATEL/CLI/BIA">P.K. PATEL/CLI/BIA</option>
+                                <option value="PANKAJ KUMAR SINGH/CLI/BIA">PANKAJ KUMAR SINGH/CLI/BIA</option>
+                                <option value="PAWAN KUMAR SINGH/CLI/BIA">PAWAN KUMAR SINGH/CLI/BIA</option>
+                                <option value="PURAN LAL PATEL/CLI/BIA">PURAN LAL PATEL/CLI/BIA</option>
+                                <option value="RAJENDRA KUMAR/CLI/BIA">RAJENDRA KUMAR/CLI/BIA</option>
+                                <option value="RAJENDRA SINGH/CLI/BIA">RAJENDRA SINGH/CLI/BIA</option>
+                                <option value="PALAK RAM ALENDRA/CLI/DRZ">PALAK RAM ALENDRA/CLI/DRZ</option>
+                                <option value="RAJESH KUMAR DESHMUKH/CLI/R">RAJESH KUMAR DESHMUKH/CLI/R</option>
+                                <option value="RAJNEESH BENERJEE/CLI/BIA">RAJNEESH BENERJEE/CLI/BIA</option>
+                                <option value="RANJEET SINGH/CLI/BIA">RANJEET SINGH/CLI/BIA</option>
+                                <option value="RAKESH KUMAR KOSTA/CLI/DRZ">RAKESH KUMAR KOSTA/CLI/DRZ</option>
+                                <option value="S K GAUTAM/CLI/BIA">S K GAUTAM/CLI/BIA</option>
+                                <option value="S S HUSSAIN/CLI/BIA">S S HUSSAIN/CLI/BIA</option>
+                                <option value="S. C. RAI/CLI/BIA">S. C. RAI/CLI/BIA</option>
+                                <option value="S. K. SINGH/CLI/BIA">S. K. SINGH/CLI/BIA</option>
+                                <option value="S. L. SONI/CLI/R">S. L. SONI/CLI/R</option>
+                                <option value="SANJAY KUMAR ROY/CLI/BIA">SANJAY KUMAR ROY/CLI/BIA</option>
+                                <option value="SANJAY SINGH/CLI/DRZ">SANJAY SINGH/CLI/DRZ</option>
+                                <option value="SANJEEV KUMAR SHARMA/CLI/BIA">SANJEEV KUMAR SHARMA/CLI/BIA</option>
+                                <option value="SANTOSH KUAMAR PATKAR/CLI/BIA">SANTOSH KUAMAR PATKAR/CLI/BIA</option>
+                                <option value="SHAILENDRA SINGH/CLI/BIA">SHAILENDRA SINGH/CLI/BIA</option>
+                                <option value="SUNDEEP KUMAR SHARMA/CLI/BIA">SUNDEEP KUMAR SHARMA/CLI/BIA</option>
+                                <option value="SUNIL KUMAR DEWANGAN/CLI/BIA">SUNIL KUMAR DEWANGAN/CLI/BIA</option>
+                                <option value="SURENDRA KUMAR SONI/CLI/BYT">SURENDRA KUMAR SONI/CLI/BYT</option>
+                                <option value="SATYENDRA KUMAR/CLI/DRZ">SATYENDRA KUMAR/CLI/DRZ</option>
+                                <option value="SANAT KUMAR SAHU/CLI/DRZ">SANAT KUMAR SAHU/CLI/DRZ</option>
+                                <option value="TEST ID/CLI/BIA">TEST ID/CLI/BIA</option>
+                                <option value="V.K. BHAGAT/CLI/R">V.K. BHAGAT/CLI/R</option>
+                                <option value="VIJAY KUMAR ARYA/CLI/BIA">VIJAY KUMAR ARYA/CLI/BIA</option>
+                                <option value="VIKAS SHENDE/CLI/R">VIKAS SHENDE/CLI/R</option>
+                                <option value="VINAY KUMAR VINCHURE/CLI/BIA">VINAY KUMAR VINCHURE/CLI/BIA</option>
+                                <option value="VINAY PANTAWANE/CLI/BIA">VINAY PANTAWANE/CLI/BIA</option>
+                                <option value="Y. RAMU/CLI/BIA">Y. RAMU/CLI/BIA</option>
+                                <option value="YOGESH KUMAR MIHAULIA/CLI/BIA">YOGESH KUMAR MIHAULIA/CLI/BIA</option>
+                                <option value="GHANA RAM SAHU/CLI/BIA">GHANA RAM SAHU/CLI/BIA</option>
+                                <option value="HARESH SHRAWAN/CLI/BIA">HARESH SHRAWAN/CLI/BIA</option>
+                                <option value="RAJPUT MUKESH KUMAR/CLI/BIA">RAJPUT MUKESH KUMAR/CLI/BIA</option>
+                                <option value="NEELKANTH DEWANGAN/CLI/BIA">NEELKANTH DEWANGAN/CLI/BIA</option>
+                                <option value="GIRISH KUMAR VERMA/CLI/BYT">GIRISH KUMAR VERMA/CLI/BYT</option>
+                                <option value="BRIJESH YADAV/CLI/BYT">BRIJESH YADAV/CLI/BYT</option>
+                                <option value="RAM KISHOR YADAV/CLI/BYT">RAM KISHOR YADAV/CLI/BYT</option>
+                                <option value="NEELMANI SAHU/CLI/BYT">NEELMANI SAHU/CLI/BYT</option>
+                                <option value="DEEPAK KUMAR SWARNAKAR/CLI/BYT">DEEPAK KUMAR SWARNAKAR/CLI/BYT</option>
+                                <option value="PYARELAL SONWANI/CLI/BYT">PYARELAL SONWANI/CLI/BYT</option>
+                                <option value="SUNEET KUMAR/CLI/BYT">SUNEET KUMAR/CLI/BYT</option>
+                                <option value="BAL KRISHNA/CLI/BYT">BAL KRISHNA/CLI/BYT</option>
+                                <option value="DHANESH KUMAR/CLI/BYT">DHANESH KUMAR/CLI/BYT</option>
+                                <option value="SANDEEP PATIL/CLI/BYT">SANDEEP PATIL/CLI/BYT</option>
+                                <option value="BALESHWAR PAHAN/CLI/BYT">BALESHWAR PAHAN/CLI/BYT</option>
+                                <option value="VIJAY RAM/CLI/BYT">VIJAY RAM/CLI/BYT</option>
+                                <option value="M R SAHU/CLI/DRZ">M R SAHU/CLI/DRZ</option>
+                                <option value="OTHER CLI">OTHER CLI</option>
                             </datalist>
-                        </div>
-                        <!-- Manual CLI Name input — shown only when OTHERS is selected -->
-                        <div id="otherCliNameBox" style="display:none; margin-top:8px;">
-                            <label style="font-size:12px;color:#c0392b;font-weight:700;display:block;margin-bottom:4px;">✏️ ENTER CLI NAME MANUALLY:</label>
-                            <input type="text" id="otherCliName" name="otherCliName"
-                                placeholder="Type full CLI Name here..."
-                                style="width:300px;height:42px;font-size:15px;font-weight:600;
-                                       border:2px solid #c0392b;border-radius:6px;padding:4px 12px;
-                                       background:#fff5f5;color:#000;letter-spacing:0.3px;">
-                        </div>
-                    </div>
                 </div>
 
                 <div id="reportDateRow" class="report-date-row" style="display:flex;justify-content:flex-start;margin-top:6px;margin-bottom:6px;">
@@ -552,25 +664,26 @@
                 </div>
                 <div id="draftStatus" class="draft-status"></div>
                 <div id="sheetStatus" class="draft-status" style="margin-bottom:8px;"></div>
-                <div id="savingAnim" class="saving-anim no-pdf" role="status" aria-live="polite">
-                    <div class="saving-ring-wrap"><div class="saving-ring"></div><div class="saving-hand">✋</div></div>
-                    <div class="saving-title">⏳ PLEASE WAIT — DATA SAVING...</div>
+
+                <!-- ⏳ Data-saving animation (shown after SUBMIT, above the buttons) -->
+                <div class="saving-panel no-pdf" id="savingPanel" role="status" aria-live="polite">
+                    <div class="saving-spinner">
+                        <svg viewBox="0 0 120 120" aria-hidden="true">
+                            <circle class="ring-track" cx="60" cy="60" r="52"></circle>
+                            <circle class="ring-arc" cx="60" cy="60" r="52"></circle>
+                        </svg>
+                        <span class="saving-hand">✋</span>
+                    </div>
+                    <div class="saving-title" id="savingTitle">⏳ PLEASE WAIT — DATA SAVING...</div>
                     <div class="saving-sub">Do not close or refresh this page</div>
                 </div>
-                <div class="action-buttons">
-                    <button type="submit" class="submit-btn btn3d b3-navy">📄 PDF</button>
-                    <button type="button" class="draft-btn download btn3d b3-green no-pdf" onclick="downloadDraft()">
-                        📥 DOWNLOAD DRAFT
-                    </button>
-                    <button type="button" class="draft-btn upload btn3d b3-blue no-pdf" onclick="document.getElementById('draftFileInput').click()">
-                        📤 UPLOAD DRAFT
-                    </button>
-                    <button type="button" class="draft-btn reset btn3d b3-red no-pdf" onclick="resetForm()">
-                        🔄 Reset
-                    </button>
-                    <button type="button" class="submit-btn btn3d b3-sub no-pdf" id="saveToSheetBtn" onclick="saveToGoogleSheet()">
-                        ✅ SUBMIT
-                    </button>
+
+                <div class="action-buttons cbtn-row">
+                    <button type="submit" class="cbtn cbtn-pdf">📄 PDF</button>
+                    <button type="button" class="cbtn cbtn-download no-pdf" onclick="downloadDraft()">📥 DOWNLOAD DRAFT</button>
+                    <button type="button" class="cbtn cbtn-upload no-pdf" onclick="document.getElementById('draftFileInput').click()">📤 UPLOAD DRAFT</button>
+                    <button type="button" class="cbtn cbtn-reset no-pdf" onclick="resetForm()">🔄 Reset</button>
+                    <button type="button" class="cbtn cbtn-submit no-pdf" id="saveToSheetBtn" onclick="saveToGoogleSheet()">✅ SUBMIT</button>
                 </div>
                 <input type="file" id="draftFileInput" class="hidden-file-input" accept=".json" onchange="uploadDraft(event)">
 
@@ -595,18 +708,21 @@
             <div class="photo-tab-content">
                 <div class="photo-panel active" id="photoPanel1">
                     <div class="photo-panel-title">Photo Set 1</div>
-                    <div class="photo-upload-zone"><label class="photo-upload-label">＋ Add Photos<input type="file" accept="image/*" multiple onchange="addPhotos(1,this)"></label><span class="photo-upload-hint">Select images — 6 per PDF page, 3 rows × 2 columns</span></div>
+                    <div class="photo-upload-zone"><label class="photo-upload-label">＋ Add Photos<input type="file" accept="image/*" multiple onchange="addPhotos(1,this)"></label><span class="photo-upload-hint">Add any number of photos — 6 per PDF page, extra photos continue on next page</span></div>
                     <div class="photo-grid" id="photoGrid1"><div class="photo-empty" id="photoEmpty1">No photos attached yet. Click "Add Photos" above.</div></div>
+                    <div class="photo-upload-zone" style="margin-top:12px;"><label class="photo-upload-label">＋ Add More Photos<input type="file" accept="image/*" multiple onchange="addPhotos(1,this)"></label><span class="photo-upload-hint" id="photoCount1">0 photos</span></div>
                 </div>
                 <div class="photo-panel" id="photoPanel2">
                     <div class="photo-panel-title">Photo Set 2</div>
-                    <div class="photo-upload-zone"><label class="photo-upload-label">＋ Add Photos<input type="file" accept="image/*" multiple onchange="addPhotos(2,this)"></label><span class="photo-upload-hint">Select images — 6 per PDF page, 3 rows × 2 columns</span></div>
+                    <div class="photo-upload-zone"><label class="photo-upload-label">＋ Add Photos<input type="file" accept="image/*" multiple onclick="return canAttachToSet(2,event)" onchange="addPhotos(2,this)"></label><span class="photo-upload-hint">Add any number of photos — 6 per PDF page, extra photos continue on next page</span></div>
                     <div class="photo-grid" id="photoGrid2"><div class="photo-empty" id="photoEmpty2">No photos attached yet. Click "Add Photos" above.</div></div>
+                    <div class="photo-upload-zone" style="margin-top:12px;"><label class="photo-upload-label">＋ Add More Photos<input type="file" accept="image/*" multiple onclick="return canAttachToSet(2,event)" onchange="addPhotos(2,this)"></label><span class="photo-upload-hint" id="photoCount2">0 photos</span></div>
                 </div>
                 <div class="photo-panel" id="photoPanel3">
                     <div class="photo-panel-title">Photo Set 3</div>
-                    <div class="photo-upload-zone"><label class="photo-upload-label">＋ Add Photos<input type="file" accept="image/*" multiple onchange="addPhotos(3,this)"></label><span class="photo-upload-hint">Select images — 6 per PDF page, 3 rows × 2 columns</span></div>
+                    <div class="photo-upload-zone"><label class="photo-upload-label">＋ Add Photos<input type="file" accept="image/*" multiple onclick="return canAttachToSet(3,event)" onchange="addPhotos(3,this)"></label><span class="photo-upload-hint">Add any number of photos — 6 per PDF page, extra photos continue on next page</span></div>
                     <div class="photo-grid" id="photoGrid3"><div class="photo-empty" id="photoEmpty3">No photos attached yet. Click "Add Photos" above.</div></div>
+                    <div class="photo-upload-zone" style="margin-top:12px;"><label class="photo-upload-label">＋ Add More Photos<input type="file" accept="image/*" multiple onclick="return canAttachToSet(3,event)" onchange="addPhotos(3,this)"></label><span class="photo-upload-hint" id="photoCount3">0 photos</span></div>
                 </div>
             </div>
         </div>
@@ -647,14 +763,16 @@
             img.onload = function() {
                 try {
                     const canvas = document.createElement('canvas');
-                    canvas.width = img.naturalWidth || img.width;
-                    canvas.height = img.naturalHeight || img.height;
+                    var w0 = img.naturalWidth || img.width, h0 = img.naturalHeight || img.height;
+                    var MAXD = 1600, sc = Math.min(1, MAXD / Math.max(w0, h0));
+                    canvas.width = Math.max(1, Math.round(w0 * sc));
+                    canvas.height = Math.max(1, Math.round(h0 * sc));
                     const ctx = canvas.getContext('2d');
                     // White background first (JPEG has no alpha channel)
                     ctx.fillStyle = '#FFFFFF';
                     ctx.fillRect(0, 0, canvas.width, canvas.height);
-                    ctx.drawImage(img, 0, 0);
-                    resolve(canvas.toDataURL('image/jpeg', 0.85));
+                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                    resolve(canvas.toDataURL('image/jpeg', 0.8));
                 } catch (err) {
                     console.error('Photo re-encode failed, using original:', err);
                     resolve(rawDataUrl); // fallback — better than losing the photo
@@ -667,7 +785,16 @@
             img.src = rawDataUrl;
         });
     }
+    function canAttachToSet(tabNum, ev) {
+        if (tabNum > 1 && photoStore[tabNum-1].length < 6) {
+            if (ev) ev.preventDefault();
+            alert('\u26D4 FIRST ATTACH PHOTOS IN PHOTO SET ' + (tabNum-1) + ' TILL ALL 6 PHOTOS ARE ATTACHED.\n\nPhoto Set ' + (tabNum-1) + ' has ' + photoStore[tabNum-1].length + ' of 6 photos.');
+            return false;
+        }
+        return true;
+    }
     function addPhotos(tabNum, input) {
+        if (!canAttachToSet(tabNum)) { input.value = ''; return; }
         const files = Array.from(input.files);
         if (!files.length) return;
         const grid  = document.getElementById('photoGrid'  + tabNum);
@@ -686,6 +813,7 @@
                     item.id = 'photoItem_' + tabNum + '_' + idx;
                     item.innerHTML = '<img src="'+dataUrl+'" alt="'+file.name+'"><div class="photo-item-label">Photo '+idx+' — '+file.name+'</div><button class="photo-remove-btn" onclick="removePhoto('+tabNum+','+idx+',this)" title="Remove">✕</button><textarea class="photo-description" placeholder="Enter photo description..." oninput="updatePhotoDescription('+tabNum+','+idx+',this.value)"></textarea>';
                     grid.appendChild(item);
+                    updatePhotoCount(tabNum);
                     scheduleAutoSave(); // save after photo added
                 });
             };
@@ -693,11 +821,13 @@
         });
         input.value = '';
     }
+    function updatePhotoCount(t){ var el=document.getElementById('photoCount'+t); if(el){ var n=photoStore[t].length; el.textContent=n+(n===1?' photo':' photos')+' — '+Math.ceil(n/6)+' PDF page(s)'; } }
     function updatePhotoDescription(tabNum, idx, desc) { const p = photoStore[tabNum].find(p=>p.idx===idx); if(p) p.description=desc; }
     function removePhoto(tabNum, idx, btn) {
         const item = document.getElementById('photoItem_'+tabNum+'_'+idx);
         if (item) item.remove();
         photoStore[tabNum] = photoStore[tabNum].filter(p=>p.idx!==idx);
+        updatePhotoCount(tabNum);
         const grid = document.getElementById('photoGrid'+tabNum);
         if (!grid.querySelectorAll('.photo-item').length) {
             const e=document.createElement('div'); e.className='photo-empty'; e.id='photoEmpty'+tabNum; e.textContent='No photos attached yet. Click "Add Photos" above.'; grid.appendChild(e);
@@ -728,7 +858,7 @@
                 console.error('Could not render photo "'+photo.name+'" in PDF:', err2);
                 pdf.setDrawColor(220,53,69); pdf.setFillColor(255,240,240);
                 pdf.roundedRect(cellX, cellY, cellW, cellH, 1, 1, 'FD');
-                pdf.setFontSize(12); pdf.setFont(undefined,'normal'); pdf.setTextColor(180,30,30);
+                pdf.setFontSize(8); pdf.setFont(undefined,'normal'); pdf.setTextColor(180,30,30);
                 pdf.text('Photo could not be loaded:\n'+(photo.name||''), cellX+cellW/2, cellY+cellH/2, {align:'center', maxWidth: cellW-6});
             }
         }
@@ -738,7 +868,7 @@
         const PW=210, PH=297, margin=8;
         const cellW=(PW-margin*3)/2;
         const cellH=52;
-        const descH=22;
+        const descH=12;
         const rowGap=4;
         const rowTotal=cellH+descH+rowGap;
         const topStart=22;
@@ -752,28 +882,31 @@
                 const row=Math.floor(i/2) % 3;
                 if (i===0 || (Math.floor(i/2) % 3===0 && i>0)) {
                     pdf.addPage();
-                    pdf.setFontSize(13); pdf.setFont(undefined,'bold'); pdf.setTextColor(0,0,0);
-                    var _ht='RAIPUR DIVISION TROUBLE REPORT  |  Photo Set '+tab+' — Page '+(Math.floor(Math.floor(i/2)/3)+1); pdf.text(_ht, PW/2, 11, {align:'center'});
-                    pdf.setDrawColor(0,0,0); pdf.line(margin,18.5,PW-margin,18.5);
+                    pdf.setFontSize(13); pdf.setFont(undefined,'bold'); pdf.setTextColor(0,51,102);
+                    // Blue header bar for photo pages
+                    pdf.setFillColor(0,51,204); pdf.rect(0,0,PW,18,'F');
+                    pdf.setFontSize(11); pdf.setFont(undefined,'bold'); pdf.setTextColor(255,255,255);
+                    pdf.text('RAIPUR DIVISION TROUBLE REPORT  |  Photo Set '+tab+' — Page '+(Math.floor(Math.floor(i/2)/3)+1), PW/2, 11, {align:'center'});
+                    pdf.setDrawColor(0,51,102); pdf.line(margin,18.5,PW-margin,18.5);
                 }
                 const rowIdx=Math.floor(i/2) % 3;
                 const y=topStart+(rowIdx*rowTotal);
                 const left=photos[i];
                 await drawPhotoIntoPdf(pdf, left, margin, y, cellW, cellH);
-                pdf.setFontSize(12); pdf.setFont(undefined,'normal'); pdf.setTextColor(0,0,0);
+                pdf.setFontSize(7.5); pdf.setFont(undefined,'bold'); pdf.setTextColor(0,51,102);
                 pdf.text('Photo '+left.idx,margin,y+cellH+4);
                 pdf.setDrawColor(200,200,200); pdf.setFillColor(255,254,240);
                 pdf.roundedRect(margin,y+cellH+5,cellW,descH-2,1,1,'FD');
-                pdf.setFontSize(12); pdf.setFont(undefined,'normal'); pdf.setTextColor(0,0,0);
+                pdf.setFontSize(7); pdf.setFont(undefined,'normal'); pdf.setTextColor(50,50,50);
                 pdf.text(left.description||'No description',margin+2,y+cellH+9.5,{maxWidth:cellW-4});
                 if (photos[i+1]) {
                     const right=photos[i+1], x2=margin+cellW+margin;
                     await drawPhotoIntoPdf(pdf, right, x2, y, cellW, cellH);
-                    pdf.setFontSize(12); pdf.setFont(undefined,'normal'); pdf.setTextColor(0,0,0);
+                    pdf.setFontSize(7.5); pdf.setFont(undefined,'bold'); pdf.setTextColor(0,51,102);
                     pdf.text('Photo '+right.idx,x2,y+cellH+4);
                     pdf.setDrawColor(200,200,200); pdf.setFillColor(255,254,240);
                     pdf.roundedRect(x2,y+cellH+5,cellW,descH-2,1,1,'FD');
-                    pdf.setFontSize(12); pdf.setFont(undefined,'normal'); pdf.setTextColor(0,0,0);
+                    pdf.setFontSize(7); pdf.setFont(undefined,'normal'); pdf.setTextColor(50,50,50);
                     pdf.text(right.description||'No description',x2+2,y+cellH+9.5,{maxWidth:cellW-4});
                 }
             }
@@ -794,7 +927,7 @@
         function checkCliOther() {
             // setTimeout ensures datalist selection is fully committed before reading value
             setTimeout(function() {
-                if (cliNameInput.value.trim().toUpperCase() === 'OTHERS') {
+                if (cliNameInput.value.trim().toUpperCase() === 'OTHER CLI') {
                     otherCliNameBox.style.display = 'block';
                 } else {
                     otherCliNameBox.style.display = 'none';
@@ -822,30 +955,69 @@
         btn.closest('.expandable-line').remove();
         container.querySelectorAll('.expandable-line').forEach(function(el,i){el.querySelector('.line-number').textContent=(i+1)+'.';});
     }
-    function previewSignature(event) {
-        const file=event.target.files[0]; if(!file) return;
-        const reader=new FileReader();
-        reader.onload=function(e){document.getElementById('signatureImage').src=e.target.result;document.getElementById('signaturePreview').style.display='block';};
+    function previewSignature(event, n) {
+        n = n || 1;
+        var suf = n === 1 ? '' : String(n);
+        var file = event.target.files[0]; if (!file) return;
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById('signatureImage' + suf).src = e.target.result;
+            document.getElementById('signaturePreview' + suf).style.display = 'block';
+        };
         reader.readAsDataURL(file);
     }
-    function previewSignature2(event) {
-        const file=event.target.files[0]; if(!file) return;
-        const reader=new FileReader();
-        reader.onload=function(e){document.getElementById('signatureImage2').src=e.target.result;document.getElementById('signaturePreview2').style.display='block';};
-        reader.readAsDataURL(file);
+    /* ===== Joint Report extras: 2nd-4th signatures + editable heading / section titles ===== */
+    function initJointTitles() {
+        document.querySelectorAll('#reportPage .section-title').forEach(function(st, i) {
+            var first = st.firstElementChild;
+            if (!first || first.classList.contains('title-wrap')) return;
+            var txt = first.textContent;
+            var wrap = document.createElement('div'); wrap.className = 'title-wrap';
+            var t = document.createElement('span'); t.className = 'title-text'; t.contentEditable = 'true'; t.spellcheck = false;
+            t.setAttribute('data-default', txt); t.setAttribute('data-ti', i); t.textContent = txt;
+            var p = document.createElement('span'); p.className = 'edit-ico no-pdf'; p.innerHTML = '&#9998;';
+            p.onclick = function(){ t.focus(); };
+            wrap.appendChild(t); wrap.appendChild(p);
+            st.replaceChild(wrap, first);
+        });
+        document.addEventListener('keydown', function(ev) {
+            if (ev.key === 'Enter' && ev.target.isContentEditable) { ev.preventDefault(); ev.target.blur(); }
+        });
+        document.addEventListener('input', function(ev) {
+            if (ev.target.isContentEditable && typeof scheduleAutoSave === 'function') scheduleAutoSave();
+        });
     }
-    function previewSignature3(event) {
-        const file=event.target.files[0]; if(!file) return;
-        const reader=new FileReader();
-        reader.onload=function(e){document.getElementById('signatureImage3').src=e.target.result;document.getElementById('signaturePreview3').style.display='block';};
-        reader.readAsDataURL(file);
+    function collectExtras(d) {
+        [2,3,4].forEach(function(n) {
+            var im = document.getElementById('signatureImage' + n);
+            if (im && im.src && im.src.indexOf('data:') === 0) d['sigData' + n] = im.src;
+        });
+        d.jx_heading = document.getElementById('jointTitle').textContent.trim();
+        var titles = {};
+        document.querySelectorAll('#reportPage .title-text').forEach(function(t){ titles[t.getAttribute('data-ti')] = t.textContent.trim(); });
+        d.jx_titles = titles;
     }
-    function previewSignature4(event) {
-        const file=event.target.files[0]; if(!file) return;
-        const reader=new FileReader();
-        reader.onload=function(e){document.getElementById('signatureImage4').src=e.target.result;document.getElementById('signaturePreview4').style.display='block';};
-        reader.readAsDataURL(file);
+    function applyExtras(d) {
+        [2,3,4].forEach(function(n) {
+            if (d['sigData' + n]) {
+                document.getElementById('signatureImage' + n).src = d['sigData' + n];
+                document.getElementById('signaturePreview' + n).style.display = 'block';
+            }
+        });
+        if (d.jx_heading) document.getElementById('jointTitle').textContent = d.jx_heading;
+        if (d.jx_titles) document.querySelectorAll('#reportPage .title-text').forEach(function(t){
+            var v = d.jx_titles[t.getAttribute('data-ti')]; if (v) t.textContent = v;
+        });
     }
+    function resetExtras() {
+        [2,3,4].forEach(function(n) {
+            document.getElementById('signatureImage' + n).src = '';
+            document.getElementById('signaturePreview' + n).style.display = 'none';
+        });
+        var h = document.getElementById('jointTitle'); h.textContent = h.getAttribute('data-default');
+        document.querySelectorAll('#reportPage .title-text').forEach(function(t){ t.textContent = t.getAttribute('data-default'); });
+    }
+    initJointTitles();
 
     /* ═══════ PRINT / PRINT PREVIEW ═══════ */
     function printReport() {
@@ -860,8 +1032,8 @@
             if (ta.classList.contains('case-details-textarea')) mirror.classList.add('case-details-textarea');
             if (ta.classList.contains('line-input'))            mirror.classList.add('line-input');
             mirror.style.minHeight  = '18px';
-            mirror.style.whiteSpace = 'pre-wrap'; mirror.style.fontWeight = 'normal'; mirror.style.background = 'transparent';
-            mirror.style.fontSize   = '12px';
+            mirror.style.whiteSpace = 'pre-wrap'; mirror.style.fontWeight = ta.classList.contains('case-details-textarea') ? 'bold' : 'normal'; mirror.style.background = 'transparent';
+            mirror.style.fontSize   = '13px';
             mirror.style.padding    = '2px 5px';
             mirror.innerHTML = ta.value || '';
             ta.parentNode.insertBefore(mirror, ta);
@@ -888,7 +1060,7 @@
     function generateExcelDocument() {
         try {
             const wb=XLSX.utils.book_new(), rows=[];
-            rows.push([((document.getElementById('mainHeadingText')||{}).innerText||'WRITE YOUR HEADING HERE').trim()]); rows.push([]);
+            rows.push(['LOCO TROUBLE REPORT']); rows.push([]);
             const cdLines=[]; document.querySelectorAll('#caseDetails textarea').forEach((ta,i)=>{if(ta.value.trim())cdLines.push((i+1)+'. '+ta.value);});
             const cd=cdLines.join('\n');
             if(cd){rows.push(['CASE DETAILS']);rows.push([cd]);rows.push([]);}
@@ -896,7 +1068,7 @@
             document.querySelectorAll('#briefHistory textarea').forEach((ta,i)=>{if(ta.value.trim())rows.push([(i+1)+'. '+ta.value]);});
             rows.push([]);
             rows.push(['LP & TRAIN PARTICULARS']);
-            [['LP Name','lpName'],['DOP','dop'],['Train No','trainNo'],['BPC No','bpcno'],['Loco No','locono'],['BPC %','bpc%'],['Load','load'],['Group CLI Name','GCLI'],['BPC Date','bpcDate'],['Schedule','schedule'],['Trip Inspection Details','inspectionDetails'],['Other','other1'],['Other','other2']].forEach(([l,id])=>{const el=document.getElementById(id);if(el&&el.value)rows.push([l,el.value]);});
+            [['LP Name','lpName'],['DOP','dop'],['Train No','trainNo'],['BPC No','bpcno'],['Loco No','locono'],['Home Shed','shed'],['BPC %','bpc%'],['Grade','grade'],['Load','load'],['Group CLI Name','GCLI'],['BPC Date','bpcDate'],['Last Counselling','lastCounselling'],['Schedule','schedule'],['Trip Inspection Details','inspectionDetails']].forEach(([l,id])=>{const el=document.getElementById(id);if(el&&el.value)rows.push([l,el.value]);});
             rows.push([]);
             rows.push(['LOG BOOK REMARKS']);
             document.querySelectorAll('#logBookRemarks textarea').forEach((ta,i)=>{if(ta.value.trim())rows.push([(i+1)+'. '+ta.value]);});
@@ -927,15 +1099,12 @@
             const mirror=document.createElement('div'); mirror.className='textarea-mirror';
             if(ta.classList.contains('case-details-textarea')) mirror.classList.add('case-details-textarea');
             if(ta.classList.contains('line-input')) mirror.classList.add('line-input');
-            mirror.style.width=ta.offsetWidth+'px'; mirror.style.whiteSpace='pre-wrap'; mirror.style.fontWeight='normal'; mirror.style.fontSize='12px'; mirror.style.background='transparent'; mirror.innerHTML=ta.value;
+            mirror.style.width='100%'; mirror.style.minWidth='0'; mirror.style.flex='1 1 auto'; mirror.style.whiteSpace='pre-wrap'; mirror.style.wordBreak='normal'; mirror.style.overflowWrap='break-word'; mirror.style.fontWeight=ta.classList.contains('case-details-textarea')?'bold':'normal'; mirror.style.background='transparent'; mirror.innerHTML=ta.value;
             ta.parentNode.insertBefore(mirror,ta); ta.style.display='none'; swaps.push({ta,mirror});
-        });
-        document.querySelectorAll('.cli-name-input').forEach(function(inp){
-            const t=document.createElement('div'); t.className='cli-name-text'; t.textContent=inp.value;
-            inp.parentNode.insertBefore(t,inp); inp.style.display='none'; swaps.push({ta:inp,mirror:t});
         });
         return swaps;
     }
+    function mirrorsFixWidth(){ document.querySelectorAll('.textarea-mirror').forEach(function(m){ m.style.width='100%'; }); }
     function restoreTextareas(swaps){swaps.forEach(function({ta,mirror}){ta.style.display='';mirror.parentNode.removeChild(mirror);});}
     document.getElementById('locoReportForm').addEventListener('submit', async function(e) {
         e.preventDefault();
@@ -953,15 +1122,16 @@
             return;
         }
 
-        const submitBtn = e.target.querySelector('.submit-btn'), originalTxt = submitBtn.textContent;
+        const submitBtn = e.target.querySelector('.cbtn-pdf'), originalTxt = submitBtn.textContent;
         submitBtn.textContent = 'Generating PDF...'; submitBtn.disabled = true;
         let swaps = [];
-        const buttons = document.querySelectorAll('.add-line-btn,.line-remove-btn,.submit-btn,.signature-upload,.voice-bar,.no-pdf');
+        const buttons = document.querySelectorAll('.add-line-btn,.line-remove-btn,.cbtn,.signature-upload,.voice-bar,.no-pdf');
         try {
             buttons.forEach(btn => btn.style.display = 'none');
             const content = document.getElementById('reportPage');
             content.classList.add('pdf-mode');
             swaps = swapTextareasForPDF();
+            mirrorsFixWidth();
             await new Promise(r => setTimeout(r, 120));
 
             const { jsPDF } = window.jspdf;
@@ -977,7 +1147,7 @@
                 if (!el || el.offsetHeight === 0) return;
                 const canvas = await html2canvas(el, {
                     scale: 2.5, useCORS: true, logging: false,
-                    backgroundColor: '#ffffff', windowWidth: 1000
+                    backgroundColor: '#ffffff', windowWidth: 1000, onclone: function(d){ d.documentElement.classList.remove('desk-phone'); }
                 });
                 const imgH = (canvas.height * contentWidth) / canvas.width;
                 const dataUrl = canvas.toDataURL('image/png');
@@ -989,7 +1159,7 @@
                         cur.y = margin;
                     }
                     pdf.addImage(dataUrl, 'PNG', margin, cur.y, contentWidth, imgH, '', 'FAST');
-                    cur.y += imgH + 0.9;
+                    cur.y += imgH + 1;
                 } else {
                     // Section taller than one full page — start on fresh page, let it span naturally
                     if (cur.y > margin + 20) { pdf.addPage(); cur.y = margin; }
@@ -1005,15 +1175,17 @@
             }
 
             // 1. Header
-            await renderToPDF(document.querySelector('#reportPage .header'));
+            await renderToPDF(document.querySelector('#reportPage .joint-heading'));
 
             // 2. Each form section — natural flow (no forced page breaks)
             const sections = document.querySelectorAll('#reportPage .section');
+            const conclusionEl = document.getElementById('sectionConclusion');
             for (const section of sections) {
+                if (section === conclusionEl) continue; // rendered together with CLI name + signature below
                 await renderToPDF(section);
             }
 
-            // 3. Signature + CLI name + Date — rendered as ONE unit (no heading added),
+            // 3. Conclusion & Responsibility + Signature + CLI name + Date — rendered as ONE unit (no heading added),
             //    so if it doesn't fit on the current page it moves to the next page
             //    together instead of the date row being left behind alone.
             const authSectionEl = document.getElementById('authSection');
@@ -1028,11 +1200,22 @@
                         displayVal = d.toLocaleDateString('en-IN', {day:'2-digit', month:'short', year:'numeric'});
                     }
                     span = document.createElement('span');
-                    span.style.cssText = 'font-size:12px;font-weight:400;color:#003399;padding:2px 8px;display:inline-flex;align-items:center;';
+                    span.style.cssText = 'font-size:14px;font-weight:700;color:#003399;padding:2px 8px;display:inline-flex;align-items:center;';
                     span.textContent = displayVal || 'NOT SET';
                     dateInput.parentNode.replaceChild(span, dateInput);
                 }
-                await renderToPDF(authSectionEl);
+                // Wrap Conclusion & Responsibility + Signature + CLI NAME + Date into ONE block,
+                // so they always land on the same PDF page (never split apart).
+                const firstEl = conclusionEl || authSectionEl;
+                const wrapParent = firstEl.parentNode;
+                const wrap = document.createElement('div');
+                wrap.id = 'conclusionSignatureWrap';
+                wrapParent.insertBefore(wrap, firstEl);
+                if (conclusionEl) wrap.appendChild(conclusionEl);
+                wrap.appendChild(authSectionEl);
+                await renderToPDF(wrap);
+                while (wrap.firstChild) wrapParent.insertBefore(wrap.firstChild, wrap);
+                wrapParent.removeChild(wrap);
                 if (span && dateInput) span.parentNode.replaceChild(dateInput, span);
             }
 
@@ -1047,13 +1230,21 @@
             const totalPages = pdf.getNumberOfPages();
             for (let pg = 1; pg <= totalPages; pg++) {
                 pdf.setPage(pg);
-                pdf.setFontSize(12);
+                if (pg <= reportPageCount) {
+                    pdf.setDrawColor(0, 51, 102);
+                    pdf.setLineWidth(0.6);
+                    pdf.line(margin, margin, margin, pdfH - margin);
+                    pdf.line(pdfW - margin, margin, pdfW - margin, pdfH - margin);
+                    pdf.line(margin, margin, pdfW - margin, margin);
+                    pdf.line(margin, pdfH - margin, pdfW - margin, pdfH - margin);
+                }
+                pdf.setFontSize(9);
                 pdf.setFont(undefined, 'normal');
                 pdf.setTextColor(130, 130, 130);
                 pdf.text('Page ' + pg + ' of ' + totalPages, pdfW - margin, pdfH - 2, { align: 'right' });
             }
 
-            pdf.save('Loco_Trouble_Report_' + new Date().toISOString().replace(/[:.]/g, '-').slice(0, -5) + '.pdf');
+            pdf.save('Joint_Report_' + new Date().toISOString().replace(/[:.]/g, '-').slice(0, -5) + '.pdf');
 
             content.classList.remove('pdf-mode');
             buttons.forEach(btn => btn.style.display = '');
@@ -1117,13 +1308,8 @@
             formData.signatureData = signatureImg.src;
         }
 
-        // Save editable heading / section-title text (contenteditable elements)
-        formData.editableHeadings = {};
-        document.querySelectorAll('#reportPage .editable-heading, #reportPage .editable-label').forEach(function(el) {
-            if (el.id) formData.editableHeadings[el.id] = el.innerText;
-        });
-
         // Save photo store data
+        collectExtras(formData);
         formData.photoStore = photoStore;
         formData.photoCounters = photoCounters;
 
@@ -1151,11 +1337,11 @@
             setSubmittedUI();
         }
 
+        applyExtras(data);
         // Restore all input and textarea values
         Object.keys(data).forEach(function(key) {
             if (key === 'photoStore' || key === 'photoCounters' || key === 'lineCounters' || key === 'signatureData'
-                || key === 'reportRecordId' || key === 'isDataSubmitted' || key === 'lastSubmittedSnapshot'
-                || key === 'editableHeadings') {
+                || key === 'reportRecordId' || key === 'isDataSubmitted' || key === 'lastSubmittedSnapshot') {
                 return; // Skip special keys
             }
 
@@ -1167,14 +1353,6 @@
                 }
             }
         });
-
-        // Restore editable heading / section-title text
-        if (data.editableHeadings) {
-            Object.keys(data.editableHeadings).forEach(function(id) {
-                const el = document.getElementById(id);
-                if (el) el.innerText = data.editableHeadings[id];
-            });
-        }
 
         // Restore signature
         if (data.signatureData) {
@@ -1198,8 +1376,7 @@
         // Re-apply all field values after lines are created
         Object.keys(data).forEach(function(key) {
             if (key === 'photoStore' || key === 'photoCounters' || key === 'lineCounters' || key === 'signatureData'
-                || key === 'reportRecordId' || key === 'isDataSubmitted' || key === 'lastSubmittedSnapshot'
-                || key === 'editableHeadings') {
+                || key === 'reportRecordId' || key === 'isDataSubmitted' || key === 'lastSubmittedSnapshot') {
                 return;
             }
             const field = document.getElementById(key) || document.querySelector('[name="' + key + '"]');
@@ -1253,7 +1430,7 @@
         var cliNameInput = document.getElementById('cliName');
         var otherCliNameBox = document.getElementById('otherCliNameBox');
         if (cliNameInput && otherCliNameBox) {
-            if (cliNameInput.value.trim().toUpperCase() === 'OTHERS') {
+            if (cliNameInput.value.trim().toUpperCase() === 'OTHER CLI') {
                 otherCliNameBox.style.display = 'block';
             }
         }
@@ -1352,13 +1529,16 @@
         ensureRecordId();
         const sheetBtn = document.getElementById('saveToSheetBtn');
         sheetBtn.disabled = false;
-        sheetBtn.textContent = '🗄️ SAVE TO GOOGLE SHEET';
-        sheetBtn.classList.remove('is-updated');
+        sheetBtn.textContent = '✅ SUBMIT';
+        sheetBtn.classList.remove('cbtn-update');
+        sheetBtn.classList.add('cbtn-submit');
         sheetBtn.style.cursor = 'pointer';
+        hideSavingPanel();
         document.getElementById('sheetStatus').className = 'draft-status';
         document.querySelectorAll('#reportPage input[type="text"], #reportPage input[type="date"], #reportPage textarea').forEach(function(f){ f.value = ''; if(f.classList.contains('auto-resize')) autoResize(f); });
         document.getElementById('signatureImage').src = '';
         document.getElementById('signaturePreview').style.display = 'none';
+        resetExtras();
         ['caseDetails','briefHistory','logBookRemarks','ddsmessage','chronologyEvents','observation','actionTaken','conclusion'].forEach(function(sid){
             var container = document.getElementById(sid);
             container.innerHTML = '';
@@ -1403,12 +1583,10 @@
                 const key = field.id || field.name;
                 if (key) data[key] = field.value;
             });
-            // Editable headings and labels
-            data._headings = {};
-            document.querySelectorAll('#reportPage .editable-heading, #reportPage .editable-label').forEach(function(el) { if (el.id) data._headings[el.id] = el.innerText; });
             // Signature
             const sig = document.getElementById('signatureImage');
             if (sig && sig.src && sig.src.startsWith('data:')) data.signatureData = sig.src;
+            collectExtras(data);
             // Line counters
             data._lineCounters = JSON.parse(JSON.stringify(lineCounters));
             // Try to save photos too (may fail if too large — caught gracefully)
@@ -1489,6 +1667,7 @@
                 });
             }
 
+            applyExtras(data);
             // Restore field values
             Object.keys(data).forEach(function(key) {
                 if (key.startsWith('_') || key === 'signatureData') return;
@@ -1498,11 +1677,6 @@
                     if (el.classList.contains('auto-resize')) autoResize(el);
                 }
             });
-
-            // Restore editable headings and labels
-            if (data._headings) {
-                Object.keys(data._headings).forEach(function(id) { const h = document.getElementById(id); if (h) h.innerText = data._headings[id]; });
-            }
 
             // Restore signature
             if (data.signatureData) {
@@ -1688,8 +1862,25 @@
         const btn = document.getElementById('saveToSheetBtn');
         btn.disabled = false;
         btn.textContent = '🔄 UPDATE ENTRY (SAVE CORRECTION)';
-        btn.classList.add('is-updated');
+        btn.classList.remove('cbtn-submit');
+        btn.classList.add('cbtn-update');
         btn.style.cursor = 'pointer';
+    }
+
+    /* ═══════ DATA-SAVING ANIMATION (above the buttons) ═══════ */
+    function showSavingPanel(msg) {
+        const panel = document.getElementById('savingPanel');
+        const titleEl = document.getElementById('savingTitle');
+        if (titleEl) titleEl.textContent = msg || '⏳ PLEASE WAIT — DATA SAVING...';
+        if (panel) {
+            panel.classList.add('show');
+            panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    }
+
+    function hideSavingPanel() {
+        const panel = document.getElementById('savingPanel');
+        if (panel) panel.classList.remove('show');
     }
 
     function showSheetStatus(msg, type) {
@@ -1701,10 +1892,12 @@
 
     async function saveToGoogleSheet() {
         const btn = document.getElementById('saveToSheetBtn');
-        const savingAnim = document.getElementById('savingAnim');
-        if (savingAnim) { savingAnim.classList.add('show'); savingAnim.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }
         btn.disabled = true;
         btn.textContent = isDataSubmitted ? '⏳ Saving correction...' : '⏳ Saving to Google Sheet...';
+        // Show the “Please wait — data saving…” animation above the buttons
+        showSavingPanel(isDataSubmitted
+            ? '⏳ PLEASE WAIT — SAVING CORRECTION...'
+            : '⏳ PLEASE WAIT — DATA SAVING...');
 
         try {
             // Collect multi-line sections
@@ -1719,32 +1912,27 @@
             // Gather all form fields
             const caseDetails   = getLines('caseDetails') || '';
             const _cliRaw       = document.getElementById('cliName').value || '';
-            const cliName       = (_cliRaw.trim().toUpperCase() === 'OTHERS')
-                                    ? (document.getElementById('otherCliName').value.trim() || 'OTHERS')
+            const cliName       = (_cliRaw.trim().toUpperCase() === 'OTHER CLI')
+                                    ? (document.getElementById('otherCliName').value.trim() || 'OTHER CLI')
                                     : _cliRaw;
 
             // Current values keyed exactly as the Apps Script expects them.
             const currentData = {
                 cliName:            cliName,
-                cliName2:           document.getElementById('cliName2') ? document.getElementById('cliName2').value : '',
-                cliName3:           document.getElementById('cliName3') ? document.getElementById('cliName3').value : '',
-                cliName4:           document.getElementById('cliName4') ? document.getElementById('cliName4').value : '',
+                official2:          document.getElementById('official2').value || '',
+                official3:          document.getElementById('official3').value || '',
+                official4:          document.getElementById('official4').value || '',
+                heading:            document.getElementById('jointTitle').textContent.trim(),
                 date:               document.getElementById('reportDate').value || '',
                 lpName:             document.getElementById('lpNamehq').value || '',
                 locoNo:             document.getElementById('locono').value || '',
                 trainNo:            document.getElementById('trainno').value || '',
-                lpcmsid:            '',
-                grade:              '',
-                doplp:              '',
                 load:               document.getElementById('load').value || '',
                 lpgcli:             document.getElementById('lpgcli').value || '',
                 bpcdetail:          document.getElementById('bpcdetail').value || '',
                 alpnamehq:          document.getElementById('alpnamehq').value || '',
                 bpcDate:            document.getElementById('bpcDate').value || '',
-                alpcmsid:           '',
-                lastCounselling:    '',
                 schedule:           document.getElementById('schedule').value || '',
-                shed:               '',
                 inspectionDetails:  document.getElementById('inspectionDetails').value || '',
                 caseDetails:        caseDetails,
                 briefHistory:       getLines('briefHistory'),
@@ -1758,7 +1946,7 @@
 
             const recordId = ensureRecordId();
             const params = new URLSearchParams();
-            params.append('sheet', 'Loco Report');
+            params.append('sheet', 'Joint Report');
             params.append('recordId', recordId);
 
             if (isDataSubmitted && lastSubmittedSnapshot) {
@@ -1777,6 +1965,7 @@
                     showSheetStatus('ℹ️ No changes detected — nothing new to save.', 'success');
                     btn.disabled = false;
                     setSubmittedUI();
+                    hideSavingPanel();
                     return;
                 }
                 params.append('mode', 'update');
@@ -1804,54 +1993,119 @@
                 'success'
             );
             setSubmittedUI();
+            hideSavingPanel();
             return; // skip finally re-enabling text
         } catch (err) {
             console.error('Sheet save error:', err);
             showSheetStatus('❌ Error saving to sheet: ' + err.message, 'error');
         } finally {
-            if (savingAnim) savingAnim.classList.remove('show');
+            hideSavingPanel();
             if (!isDataSubmitted) {
                 btn.disabled = false;
-                btn.textContent = '🗄️ SAVE TO GOOGLE SHEET';
+                btn.textContent = '✅ SUBMIT';
             } else {
                 btn.disabled = false;
             }
         }
     }
-    </script>
-<script>
-    (function(){
-        var h=document.getElementById('mainHeadingText');
-        if(!h) return;
-        h.addEventListener('paste',function(e){
-            e.preventDefault();
-            var t=(e.clipboardData||window.clipboardData).getData('text/plain').replace(/[\r\n]+/g,' ');
-            document.execCommand('insertText',false,t);
+
+    /* ═══════════════════════════════════════════════
+       CLI NAME DROPDOWN  ←  Google Sheet  (tab: CLI LIST, column A)
+       Sheet must be shared: "Anyone with the link – Viewer"
+    ═══════════════════════════════════════════════ */
+    const CLI_SHEET_ID  = '1H0mYFSkukeAqozr7Ez4dz-8CC9au8pmucjbGwoLUFUo'; // ALLFORMSDATA
+    const CLI_SHEET_GID = '1409682114';                                     // CLI LIST tab
+    const CLI_CACHE_KEY = 'cliNamesCache_v2';
+    const CLI_SKIP = ['CLI LIST', 'OTHERS', 'OTHER CLI'];   // header + manual-entry rows (OTHERS is re-added last)
+
+    function applyCliNames(names) {
+        const dl = document.getElementById('cliNameOptions');
+        if (!dl || !names || !names.length) return false;
+        const seen = new Set(), clean = [];
+        names.forEach(function (n) {
+            n = String(n == null ? '' : n).replace(/\s+/g, ' ').trim();
+            if (!n || CLI_SKIP.indexOf(n.toUpperCase()) !== -1) return;
+            if (seen.has(n.toUpperCase())) return;
+            seen.add(n.toUpperCase());
+            clean.push(n);                          // keeps the same order as the sheet
         });
-    })();
-    </script>
-<script>
-    (function(){
-        document.addEventListener('input',function(e){ if(e.target.closest && e.target.closest('.editable-heading, .editable-label') && typeof scheduleAutoSave==='function') scheduleAutoSave(); });
-        document.querySelectorAll('.editable-label').forEach(function(el){
-            el.addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault(); el.blur(); } });
-            el.addEventListener('paste',function(e){
-                e.preventDefault();
-                var t=(e.clipboardData||window.clipboardData).getData('text/plain').replace(/[\r\n]+/g,' ');
-                document.execCommand('insertText',false,t);
-            });
+        if (!clean.length) return false;
+        clean.push('OTHER CLI');                       // manual-entry option always last (page logic depends on this exact text)
+        const frag = document.createDocumentFragment();
+        clean.forEach(function (n) {
+            const o = document.createElement('option');
+            o.value = n; o.textContent = n;
+            frag.appendChild(o);
         });
-    })();
-    </script>
-<script>
-    (function(){
-        document.querySelectorAll('.action-buttons .btn3d').forEach(function(b){
-            b.addEventListener('click', function(){
-                b.classList.add('is-clicked');
-                setTimeout(function(){ b.classList.remove('is-clicked'); }, 700);
-            });
+        dl.innerHTML = '';
+        dl.appendChild(frag);
+        return true;
+    }
+
+    function gvizRowsToNames(json) {
+        return ((json && json.table && json.table.rows) || []).map(function (r) {
+            return r.c && r.c[0] && r.c[0].v != null ? r.c[0].v : '';
         });
-    })();
+    }
+
+    const CLI_GVIZ_URL = 'https://docs.google.com/spreadsheets/d/' + CLI_SHEET_ID +
+                         '/gviz/tq?gid=' + CLI_SHEET_GID + '&headers=0&tq=' + encodeURIComponent('select A');
+
+    // Method 1: gviz via <script> tag (JSONP) – not affected by CORS, works from file:// or any host
+    function fetchCliNamesJsonp() {
+        return new Promise(function (resolve, reject) {
+            const cb = '__cliGvizCb' + Date.now();
+            const s = document.createElement('script');
+            const timer = setTimeout(function () { cleanup(); reject(new Error('timeout – is the sheet shared publicly?')); }, 8000);
+            function cleanup() { clearTimeout(timer); try { delete window[cb]; } catch (e) { window[cb] = undefined; } if (s.parentNode) s.parentNode.removeChild(s); }
+            window[cb] = function (json) {
+                cleanup();
+                if (!json || json.status === 'error') return reject(new Error('gviz error'));
+                resolve(gvizRowsToNames(json));
+            };
+            s.onerror = function () { cleanup(); reject(new Error('script load failed')); };
+            s.src = CLI_GVIZ_URL + '&tqx=out:json;responseHandler:' + cb + '&_=' + Date.now();
+            document.head.appendChild(s);
+        });
+    }
+
+    // Method 2: gviz via fetch()
+    async function fetchCliNamesGviz() {
+        const res = await fetch(CLI_GVIZ_URL + '&tqx=out:json&_=' + Date.now());
+        if (!res.ok) throw new Error('gviz HTTP ' + res.status);
+        const txt = await res.text();
+        return gvizRowsToNames(JSON.parse(txt.substring(txt.indexOf('{'), txt.lastIndexOf('}') + 1)));
+    }
+
+    // Method 3: Apps Script doGet  (…/exec?action=cliList)  → { names:[...] }
+    async function fetchCliNamesScript() {
+        const res = await fetch(SHEET_SCRIPT_URL + '?action=cliList&_=' + Date.now());
+        if (!res.ok) throw new Error('script HTTP ' + res.status);
+        const data = await res.json();
+        return data.names || data;
+    }
+
+    async function loadCliNames() {
+        // 1) show last cached list instantly
+        try {
+            const cached = JSON.parse(localStorage.getItem(CLI_CACHE_KEY) || 'null');
+            if (cached && cached.length) applyCliNames(cached);
+        } catch (e) {}
+        // 2) refresh from sheet – try each method until one returns names
+        const methods = [fetchCliNamesJsonp, fetchCliNamesGviz, fetchCliNamesScript];
+        for (let i = 0; i < methods.length; i++) {
+            try {
+                const names = await methods[i]();
+                if (names && names.length && applyCliNames(names)) {
+                    console.info('CLI names loaded from sheet via', methods[i].name, '(' + names.length + ' rows)');
+                    try { localStorage.setItem(CLI_CACHE_KEY, JSON.stringify(names)); } catch (e) {}
+                    return;
+                }
+            } catch (e) { console.warn('CLI load failed (' + methods[i].name + '):', e.message || e); }
+        }
+        // else: cached / built-in static list stays as fallback
+    }
+    document.addEventListener('DOMContentLoaded', loadCliNames);
     </script>
 </body>
 </html>
