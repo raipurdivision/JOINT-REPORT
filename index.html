@@ -402,7 +402,7 @@
 
         /* ===== JOINT REPORT additions ===== */
         .joint-heading { text-align:center; padding:26px 10px 14px; border-bottom:4px solid #000; margin-bottom:22px; }
-        .joint-heading #jointTitle { display:inline-block; min-width:200px; max-width:92%; font-size:20px; font-weight:800; color:#003366; text-transform:uppercase; letter-spacing:.4px; outline:none; word-break:break-word; }
+        .joint-heading #jointTitle { display:inline-block; min-width:200px; max-width:92%; font-size:18px; font-weight:800; color:#003366; text-transform:uppercase; letter-spacing:.4px; outline:none; word-break:break-word; }
         .joint-heading #jointTitle:focus { background:#FFFEF0; box-shadow:0 0 0 2px #FFD700; border-radius:4px; }
         .edit-ico { font-size:13px; color:#555; margin-left:8px; cursor:pointer; user-select:none; }
         .section-title .title-wrap { display:flex; align-items:center; gap:4px; min-width:0; flex:1; }
@@ -410,7 +410,7 @@
         .section-title .title-text:focus { background:#FFFEF0; color:#003366; box-shadow:0 0 0 2px #FFD700; border-radius:3px; padding:0 4px; }
         .section-title .edit-ico { font-size:11px; margin-left:2px; color:#c0392b; }
         .pdf-mode .joint-heading { border-bottom:4px solid #000 !important; }
-        .pdf-mode .joint-heading #jointTitle { font-size:12px !important; }
+        .pdf-mode .joint-heading #jointTitle { font-size:11px !important; }
         .signature-section.sig-row4 { display:flex; justify-content:space-between; align-items:flex-start; gap:12px; margin-top:26px; }
         .sig-row4 .sig-col { flex:1 1 0; min-width:0; text-align:center; }
         .sig-row4 .signature-upload { background:#fff; color:#000; border:1px solid #888; border-radius:5px; padding:5px 14px; font-size:13px; font-weight:500; }
@@ -419,6 +419,10 @@
         .sig-row4 .signature-preview img { max-height:70px; }
         .sig-row4 .sig-input-wrap { margin-top:8px; background:#eef3fa; border:1px solid #c9d6ea; border-radius:6px; padding:4px 6px; }
         .sig-row4 .sig-name { width:100% !important; height:30px !important; margin:0 !important; font-size:13px !important; font-weight:600 !important; padding:2px 6px !important; text-align:center; }
+        .sig-row4 .signature-preview { position:relative; width:fit-content; }
+        .sig-del-btn { position:absolute; top:-8px; right:-8px; width:22px; height:22px; border-radius:50%; background:#dc3545; color:#fff; border:none; font-size:14px; font-weight:700; line-height:1; cursor:pointer; display:flex; align-items:center; justify-content:center; padding:0; box-shadow:0 1px 4px rgba(0,0,0,.35); }
+        .sig-del-btn:hover { background:#c82333; transform:scale(1.12); }
+        .pdf-mode .sig-del-btn { display:none !important; }
         .pdf-mode .sig-row4 .sig-input-wrap { background:transparent !important; border:none !important; }
         .pdf-mode .sig-row4 .sig-name { font-size:13px !important; }
 
@@ -431,7 +435,7 @@
             .page-nav-btn.active { background:#003366 !important; color:#fff !important; }
             .container { max-width:100% !important; width:100%; margin:0 !important; padding:8px !important; border-radius:0 !important; box-shadow:none !important; border-top:2px solid #003366; min-height:calc(100vh - 46px); }
             .joint-heading { padding:14px 6px 10px; margin-bottom:12px; }
-            .joint-heading #jointTitle { font-size:16px; }
+            .joint-heading #jointTitle { font-size:14.5px; }
             .photo-fullscreen { background:#fff !important; padding:0 !important; }
             .photo-fs-inner { max-width:100% !important; border-radius:0 !important; box-shadow:none !important; min-height:100%; }
             .signature-section.sig-row4 { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
@@ -532,7 +536,7 @@
                 <div class="signature-section sig-row4" id="signatureSection">
                         <div class="sig-col">
                             <label class="signature-upload">Attach Sign<input type="file" id="signatureFile" accept="image/*" onchange="previewSignature(event,1)"></label>
-                            <div class="signature-preview" id="signaturePreview" style="display:none;"><img id="signatureImage" src="" alt="Signature 1"></div>
+                            <div class="signature-preview" id="signaturePreview" style="display:none;"><img id="signatureImage" src="" alt="Signature 1"><button type="button" class="sig-del-btn no-pdf" onclick="removeSignature(1)" title="Remove signature">&#10005;</button></div>
                             <div class="sig-input-wrap"><input list="cliNameOptions" type="text" class="cli-name-input sig-name" id="cliName" name="cliName" placeholder="Select CLI Name"></div>
                             <div id="otherCliNameBox" style="display:none; margin-top:6px;">
                                 <input type="text" id="otherCliName" name="otherCliName" placeholder="Type full CLI Name here..." style="width:100%;height:36px;font-size:13px;font-weight:600;border:2px solid #c0392b;border-radius:6px;padding:4px 8px;background:#fff5f5;color:#000;">
@@ -540,17 +544,17 @@
                         </div>
                         <div class="sig-col">
                             <label class="signature-upload">Attach Sign<input type="file" id="signatureFile2" accept="image/*" onchange="previewSignature(event,2)"></label>
-                            <div class="signature-preview" id="signaturePreview2" style="display:none;"><img id="signatureImage2" src="" alt="Signature 2"></div>
+                            <div class="signature-preview" id="signaturePreview2" style="display:none;"><img id="signatureImage2" src="" alt="Signature 2"><button type="button" class="sig-del-btn no-pdf" onclick="removeSignature(2)" title="Remove signature">&#10005;</button></div>
                             <div class="sig-input-wrap"><input type="text" autocomplete="off" class="cli-name-input sig-name" id="official2" name="official2" placeholder="Select 2nd Official"></div>
                         </div>
                         <div class="sig-col">
                             <label class="signature-upload">Attach Sign<input type="file" id="signatureFile3" accept="image/*" onchange="previewSignature(event,3)"></label>
-                            <div class="signature-preview" id="signaturePreview3" style="display:none;"><img id="signatureImage3" src="" alt="Signature 3"></div>
+                            <div class="signature-preview" id="signaturePreview3" style="display:none;"><img id="signatureImage3" src="" alt="Signature 3"><button type="button" class="sig-del-btn no-pdf" onclick="removeSignature(3)" title="Remove signature">&#10005;</button></div>
                             <div class="sig-input-wrap"><input type="text" autocomplete="off" class="cli-name-input sig-name" id="official3" name="official3" placeholder="Select 3rd Official"></div>
                         </div>
                         <div class="sig-col">
                             <label class="signature-upload">Attach Sign<input type="file" id="signatureFile4" accept="image/*" onchange="previewSignature(event,4)"></label>
-                            <div class="signature-preview" id="signaturePreview4" style="display:none;"><img id="signatureImage4" src="" alt="Signature 4"></div>
+                            <div class="signature-preview" id="signaturePreview4" style="display:none;"><img id="signatureImage4" src="" alt="Signature 4"><button type="button" class="sig-del-btn no-pdf" onclick="removeSignature(4)" title="Remove signature">&#10005;</button></div>
                             <div class="sig-input-wrap"><input type="text" autocomplete="off" class="cli-name-input sig-name" id="official4" name="official4" placeholder="Select 4th Official"></div>
                         </div>
                         <datalist id="cliNameOptions">
@@ -966,6 +970,13 @@
         };
         reader.readAsDataURL(file);
     }
+    function removeSignature(n) {
+        var suf = n === 1 ? '' : String(n);
+        document.getElementById('signatureImage' + suf).src = '';
+        document.getElementById('signaturePreview' + suf).style.display = 'none';
+        var f = document.getElementById('signatureFile' + suf); if (f) f.value = '';
+        if (typeof scheduleAutoSave === 'function') scheduleAutoSave();
+    }
     /* ===== Joint Report extras: 2nd-4th signatures + editable heading / section titles ===== */
     function initJointTitles() {
         document.querySelectorAll('#reportPage .section-title').forEach(function(st, i) {
@@ -1206,6 +1217,19 @@
                 }
                 // Wrap Conclusion & Responsibility + Signature + CLI NAME + Date into ONE block,
                 // so they always land on the same PDF page (never split apart).
+                // Hide 2nd/3rd/4th official columns that have neither a name nor a signature
+                // (visibility keeps the other columns in their original positions)
+                const hiddenSigCols = [];
+                [2,3,4].forEach(function(n) {
+                    const nameEl = document.getElementById('official' + n);
+                    const imgEl = document.getElementById('signatureImage' + n);
+                    const hasName = nameEl && nameEl.value.trim() !== '';
+                    const hasSign = imgEl && imgEl.src && imgEl.src.indexOf('data:') === 0;
+                    if (!hasName && !hasSign && nameEl) {
+                        const col = nameEl.closest('.sig-col');
+                        if (col) { col.style.visibility = 'hidden'; hiddenSigCols.push(col); }
+                    }
+                });
                 const firstEl = conclusionEl || authSectionEl;
                 const wrapParent = firstEl.parentNode;
                 const wrap = document.createElement('div');
@@ -1216,6 +1240,7 @@
                 await renderToPDF(wrap);
                 while (wrap.firstChild) wrapParent.insertBefore(wrap.firstChild, wrap);
                 wrapParent.removeChild(wrap);
+                hiddenSigCols.forEach(function(c){ c.style.visibility = ''; });
                 if (span && dateInput) span.parentNode.replaceChild(dateInput, span);
             }
 
